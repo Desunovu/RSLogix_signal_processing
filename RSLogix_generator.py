@@ -1,4 +1,5 @@
-﻿import time
+﻿import re
+import time
 import xml.etree.ElementTree
 import lxml.etree as ET
 import pylightxl as xl
@@ -202,10 +203,16 @@ if __name__ == "__main__":
         di = 0
         do = 0
         i = 0
+        # проход по строкам xlsx файла
         for row in data.ws(ws="Sheet1").rows:
+            # пропуск первой строки
             if row[_ROUTINE] == "ИМЯ ПО":
                 continue
-            if row[_ADDR] != "":
+
+            if not row[_ADDR]:
+                continue
+            # Далее выполняется если ADDR заполнена верно
+            elif re.match(r'^([I]|[Q])[:][0-9]{1,2}[/][0-9]{2}$', row[_ADDR]):
 
                 # Информация из строки EXEL - Имя тега, описание, local
                 tag_name = row[_TAG_NAME]
@@ -218,32 +225,33 @@ if __name__ == "__main__":
 
                 rungs_comment = "ОПИСАНИЕ"
 
-                letter = row[2].split(":")[0]
-                index1 = row[2].split(":")[1].split("/")[0]
-                index2 = row[2].split(":")[1].split("/")[1]
+                letter = row[_ADDR].split(":")[0]
+                index1 = row[_ADDR].split(":")[1].split("/")[0]
+                index2 = row[_ADDR].split(":")[1].split("/")[1]
                 local = (index1, letter, index2)
 
                 # Определение типа - AI/DI/DOut
                 controller = None
                 ttype = ""
-                if "AI" in row[0]:
-                    print(f"AI - {tag_name} - {tag_description}")
+                if "AI" in row[_ROUTINE]:
                     controller = ai_controller
                     ttype = "AI"
                     i = ai
                     ai += 1
-                if "DI" in row[0]:
-                    print(f"DI - {tag_name} - {tag_description}")
+                elif "DI" in row[_ROUTINE]:
                     controller = di_controller
                     ttype = "DI"
                     i = di
                     di += 1
-                if "DO" in row[0]:
-                    print(f"DOut - {tag_name} - {tag_description}")
+                elif "DO" in row[_ROUTINE]:
                     controller = dout_controller
                     ttype = "DOut"
                     i = do
                     do += 1
+                else:
+                    print(f"НЕВЕРНОЕ ИМЯ ПО ({row[_ROUTINE]}) У {row[_ADDR]}, ЗАВЕРШЕНИЕ С ОШИБКОЙ\n")
+                    raise Exception
+                print(f"{ttype} - {tag_name} - {tag_description}")
 
                 # Добавление тега и строк в нужную рутину
                 addTag(
@@ -262,21 +270,28 @@ if __name__ == "__main__":
                     local=local
                 )
                 #time.sleep(0.01)
+            else:
+                print(f"НЕВЕРНЫЙ LOCAL: {row[_ADDR]}, ЗАВЕРШЕНИЕ С ОШИБКОЙ\n")
+                raise Exception
+
 
         # Проверим что шаблоны ЗАПОЛНЕНЫ
         #for controller in (ai_controller, di_controller, dout_controller):
         #    printTags(controller)
         #    printRungs(controller)
 
-        ai_tree.write(f"{format}_{AI_OUTPUT}", encoding="UTF-8", xml_declaration=True)
-        di_tree.write(f"{format}_{DI_OUTPUT}", encoding="UTF-8", xml_declaration=True)
-        dout_tree.write(f"{format}_{DOut_OUTPUT}", encoding="UTF-8", xml_declaration=True)
+        try:
+            ai_tree.write(f"{format}_{AI_OUTPUT}", encoding="UTF-8", xml_declaration=True)
+            di_tree.write(f"{format}_{DI_OUTPUT}", encoding="UTF-8", xml_declaration=True)
+            dout_tree.write(f"{format}_{DOut_OUTPUT}", encoding="UTF-8", xml_declaration=True)
+            print(f"Файлы {format}_*.L5X успешно записаны!")
+        except Exception as ex:
+            print(ex)
+            print("При записи файлов произошла ошибка. Возможно файлы не сохранены")
 
 
-
+        print(f"УСПЕШНО ЗАВЕРШЕНО\nПропущено строк: {lines_skipped}")
+        input("нажмите ENTER для выхода")
     except Exception as ex:
         print(f"Ошибка выполнения\n{ex}")
-        input("нажмите ENTER для выхода")
-    finally:
-        print(f"УСПЕШНО ЗАВЕРШЕНО\nПропущено строк: {lines_skipped}")
         input("нажмите ENTER для выхода")
