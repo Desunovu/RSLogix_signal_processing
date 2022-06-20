@@ -30,6 +30,17 @@ AI_OUTPUT = "AI.L5X"
 DI_OUTPUT = "DI.L5X"
 DOut_OUTPUT = "DOut.L5X"
 
+_ROUTINE = 0
+_TAG_NAME = 1
+_ADDR = 2
+_DESCA = 5
+_DESCB = 6
+_DESCC = 7
+_DESCD = 8
+_DESCE = 9
+
+lines_skipped = 0
+
 
 def printTags(controller:xml.etree.ElementTree.Element):
     tags = controller.find("Tags")
@@ -80,7 +91,7 @@ def createAIRungs(tag_name, comment, no, local):
 
         if i == 0:
             rung.find("Comment").text = ET.CDATA(f"Обработка аналогового датчика: {comment}")
-            rung.find("Text").text = ET.CDATA(f"XIO({tag_name}.Imit_Mode)MOV({local_str}Data,{tag_name}.In.In_Aut);")
+            rung.find("Text").text = ET.CDATA(f"XIO({tag_name}.In.Imit_Mode)MOV({local_str}Data,{tag_name}.In.In_Aut);")
         if i == 1:
             rung.find("Text").text = ET.CDATA(f"JSR(_AI,1,{tag_name},{tag_name});")
     return new_rungs
@@ -192,14 +203,21 @@ if __name__ == "__main__":
         do = 0
         i = 0
         for row in data.ws(ws="Sheet1").rows:
-            if row[0] == "ИМЯ ПО":
+            if row[_ROUTINE] == "ИМЯ ПО":
                 continue
-            if row[2] != "":
+            if row[_ADDR] != "":
 
                 # Информация из строки EXEL - Имя тега, описание, local
-                tag_name = row[1]
-                tag_description = f"{row[5]} {row[6]} {row[7]} {row[8]}"
+                tag_name = row[_TAG_NAME]
+                if tag_name == "":
+                    print(f"Отсутствует имя тега у {row[_ADDR]}, пропуск итерации\n")
+                    lines_skipped += 1
+                    continue
+
+                tag_description = f"{row[_DESCA]} {row[_DESCB]} {row[_DESCC]} {row[_DESCD]} {row[_DESCE]}"
+
                 rungs_comment = "ОПИСАНИЕ"
+
                 letter = row[2].split(":")[0]
                 index1 = row[2].split(":")[1].split("/")[0]
                 index2 = row[2].split(":")[1].split("/")[1]
@@ -260,4 +278,5 @@ if __name__ == "__main__":
         print(f"Ошибка выполнения\n{ex}")
         input("нажмите ENTER для выхода")
     finally:
+        print(f"УСПЕШНО ЗАВЕРШЕНО\nПропущено строк: {lines_skipped}")
         input("нажмите ENTER для выхода")
