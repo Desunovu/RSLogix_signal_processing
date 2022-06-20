@@ -1,0 +1,622 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="28.02" TargetName="AI" TargetType="Routine"
+                    TargetSubType="RLL" ContainsContext="true" Owner="Microsoft, Microsoft"
+                    ExportDate="Wed Jun 15 13:43:15 2022"
+                    ExportOptions="References NoRawData L5KData DecoratedData Context Dependencies ForceProtectedEncoding AllProjDocTrans">
+    <Controller Use="Context" Name="PLC_LO1_IAT">
+        <DataTypes Use="Context">
+            <DataType Name="_AH_Alarm" Family="NoFamily" Class="User">
+                <Description>
+                    <![CDATA[Описание аварии]]>
+                </Description>
+                <Members>
+                    <Member Name="ZZZZZZZZZZ_AH_Alarm0" DataType="SINT" Dimension="0" Radix="Decimal" Hidden="true"
+                            ExternalAccess="Read/Write"/>
+                    <Member Name="In" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"
+                            Target="ZZZZZZZZZZ_AH_Alarm0" BitNumber="0" ExternalAccess="Read/Write">
+                        <Description>
+                            <![CDATA[- Условие появления]]>
+                        </Description>
+                    </Member>
+                    <Member Name="Out" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"
+                            Target="ZZZZZZZZZZ_AH_Alarm0" BitNumber="1" ExternalAccess="Read/Write">
+                        <Description>
+                            <![CDATA[- Есть авария]]>
+                        </Description>
+                    </Member>
+                    <Member Name="Enable" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"
+                            Target="ZZZZZZZZZZ_AH_Alarm0" BitNumber="2" ExternalAccess="Read/Write">
+                        <Description>
+                            <![CDATA[- Разрешена]]>
+                        </Description>
+                    </Member>
+                    <Member Name="Ack" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"
+                            Target="ZZZZZZZZZZ_AH_Alarm0" BitNumber="3" ExternalAccess="Read/Write">
+                        <Description>
+                            <![CDATA[- Подтверждена]]>
+                        </Description>
+                    </Member>
+                    <Member Name="Unack" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"
+                            Target="ZZZZZZZZZZ_AH_Alarm0" BitNumber="4" ExternalAccess="Read/Write">
+                        <Description>
+                            <![CDATA[- Не подтверждена]]>
+                        </Description>
+                    </Member>
+                    <Member Name="Quit" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"
+                            Target="ZZZZZZZZZZ_AH_Alarm0" BitNumber="5" ExternalAccess="Read/Write">
+                        <Description>
+                            <![CDATA[- Квитирование]]>
+                        </Description>
+                    </Member>
+                    <Member Name="Timer" DataType="TIMER" Dimension="0" Radix="NullType" Hidden="false"
+                            ExternalAccess="Read/Write">
+                        <Description>
+                            <![CDATA[- Таймер фиксации]]>
+                        </Description>
+                    </Member>
+                    <Member Name="ZZZZZZZZZZ_AH_Alarm8" DataType="SINT" Dimension="0" Radix="Decimal" Hidden="true"
+                            ExternalAccess="Read/Write"/>
+                    <Member Name="OutOSR" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"
+                            Target="ZZZZZZZZZZ_AH_Alarm8" BitNumber="0" ExternalAccess="Read/Write">
+                        <Description>
+                            <![CDATA[- Фронт наличия аварии]]>
+                        </Description>
+                    </Member>
+                    <Member Name="AckOSR" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"
+                            Target="ZZZZZZZZZZ_AH_Alarm8" BitNumber="1" ExternalAccess="Read/Write">
+                        <Description>
+                            <![CDATA[- Фронт подтверждения]]>
+                        </Description>
+                    </Member>
+                    <Member Name="OutDT" DataType="_DT_DateTime" Dimension="0" Radix="NullType" Hidden="false"
+                            ExternalAccess="Read/Write">
+                        <Description>
+                            <![CDATA[- Дата и время появления аварии]]>
+                        </Description>
+                    </Member>
+                    <Member Name="AckDT" DataType="_DT_DateTime" Dimension="0" Radix="NullType" Hidden="false"
+                            ExternalAccess="Read/Write">
+                        <Description>
+                            <![CDATA[- Дата и время подтверждения аварии]]>
+                        </Description>
+                    </Member>
+                </Members>
+                <Dependencies>
+                    <Dependency Type="DataType" Name="_DT_DateTime"/>
+                    <Dependency Type="DataType" Name="_DT_DateTime"/>
+                </Dependencies>
+            </DataType>
+            <DataType Name="_AI" Family="NoFamily" Class="User">
+                <Description>
+                    <![CDATA[Аналоговый вход]]>
+                </Description>
+                <Members>
+                    <Member Name="Cfg" DataType="_AI_Cfg" Dimension="0" Radix="NullType" Hidden="false"
+                            ExternalAccess="Read/Write">
+                        <Description>
+                            <![CDATA[- Конфигурация]]>
+                        </Description>
+                    </Member>
+                    <Member Name="In" DataType="_AI_In" Dimension="0" Radix="NullType" Hidden="false"
+                            ExternalAccess="Read/Write">
+                        <Description>
+                            <![CDATA[- Входные]]>
+                        </Description>
+                    </Member>
+                    <Member Name="Out" DataType="_AI_Out" Dimension="0" Radix="NullType" Hidden="false"
+                            ExternalAccess="Read/Write">
+                        <Description>
+                            <![CDATA[- Выходные]]>
+                        </Description>
+                    </Member>
+                    <Member Name="Int" DataType="_AI_Int" Dimension="0" Radix="NullType" Hidden="false"
+                            ExternalAccess="Read/Write">
+                        <Description>
+                            <![CDATA[- Внутренние]]>
+                        </Description>
+                    </Member>
+                    <Member Name="Par" DataType="_AI_Par" Dimension="0" Radix="NullType" Hidden="false"
+                            ExternalAccess="Read/Write">
+                        <Description>
+                            <![CDATA[- Параметры]]>
+                        </Description>
+                    </Member>
+                    <Member Name="HMI" DataType="_AI_HMI" Dimension="0" Radix="NullType" Hidden="false"
+                            ExternalAccess="Read/Write">
+                        <Description>
+                            <![CDATA[- Интерфейс оператора]]>
+                        </Description>
+                    </Member>
+                    <Member Name="Alm" DataType="_AI_Alm" Dimension="0" Radix="NullType" Hidden="false"
+                            ExternalAccess="Read/Write">
+                        <Description>
+                            <![CDATA[- Аварии]]>
+                        </Description>
+                    </Member>
+                </Members>
+                <Dependencies>
+                    <Dependency Type="DataType" Name="_AI_Cfg"/>
+                    <Dependency Type="DataType" Name="_AI_In"/>
+                    <Dependency Type="DataType" Name="_AI_Out"/>
+                    <Dependency Type="DataType" Name="_AI_Int"/>
+                    <Dependency Type="DataType" Name="_AI_Par"/>
+                    <Dependency Type="DataType" Name="_AI_HMI"/>
+                    <Dependency Type="DataType" Name="_AI_Alm"/>
+                </Dependencies>
+            </DataType>
+            <DataType Name="_AI_Alm" Family="NoFamily" Class="User">
+                <Description>
+                    <![CDATA[Аварии]]>
+                </Description>
+                <Members>
+                    <Member Name="Beyond" DataType="_AH_Alarm" Dimension="0" Radix="NullType" Hidden="false"
+                            ExternalAccess="Read/Write">
+                        <Description>
+                            <![CDATA[- Выход за пределы измерения]]>
+                        </Description>
+                    </Member>
+                    <Member Name="Breakage" DataType="_AH_Alarm" Dimension="0" Radix="NullType" Hidden="false"
+                            ExternalAccess="Read/Write">
+                        <Description>
+                            <![CDATA[- Обрыв или КЗ]]>
+                        </Description>
+                    </Member>
+                    <Member Name="Max_Alm" DataType="_AH_Alarm" Dimension="0" Radix="NullType" Hidden="false"
+                            ExternalAccess="Read/Write">
+                        <Description>
+                            <![CDATA[- Достигнуто максимальное аварийное значение]]>
+                        </Description>
+                    </Member>
+                    <Member Name="Max_Wrn" DataType="_AH_Alarm" Dimension="0" Radix="NullType" Hidden="false"
+                            ExternalAccess="Read/Write">
+                        <Description>
+                            <![CDATA[- Достигнуто максимальное предупредительно значение]]>
+                        </Description>
+                    </Member>
+                    <Member Name="Min_Wrn" DataType="_AH_Alarm" Dimension="0" Radix="NullType" Hidden="false"
+                            ExternalAccess="Read/Write">
+                        <Description>
+                            <![CDATA[- Достигнуто минимальное предупредительное значение]]>
+                        </Description>
+                    </Member>
+                    <Member Name="Min_Alm" DataType="_AH_Alarm" Dimension="0" Radix="NullType" Hidden="false"
+                            ExternalAccess="Read/Write">
+                        <Description>
+                            <![CDATA[- Достигнуто минимальное аварийное значение]]>
+                        </Description>
+                    </Member>
+                    <Member Name="UControl" DataType="_AH_Alarm" Dimension="0" Radix="NullType" Hidden="false"
+                            ExternalAccess="Read/Write">
+                        <Description>
+                            <![CDATA[- Нет напряжение управления]]>
+                        </Description>
+                    </Member>
+                    <Member Name="HMI" DataType="_AI_Alm_HMI" Dimension="0" Radix="NullType" Hidden="false"
+                            ExternalAccess="Read/Write">
+                        <Description>
+                            <![CDATA[Аварии для HMI]]>
+                        </Description>
+                    </Member>
+                </Members>
+                <Dependencies>
+                    <Dependency Type="DataType" Name="_AH_Alarm"/>
+                    <Dependency Type="DataType" Name="_AH_Alarm"/>
+                    <Dependency Type="DataType" Name="_AH_Alarm"/>
+                    <Dependency Type="DataType" Name="_AH_Alarm"/>
+                    <Dependency Type="DataType" Name="_AH_Alarm"/>
+                    <Dependency Type="DataType" Name="_AH_Alarm"/>
+                    <Dependency Type="DataType" Name="_AH_Alarm"/>
+                    <Dependency Type="DataType" Name="_AI_Alm_HMI"/>
+                </Dependencies>
+            </DataType>
+            <DataType Name="_AI_Alm_HMI" Family="NoFamily" Class="User">
+                <Description>
+                    <![CDATA[Аварии для HMI]]>
+                </Description>
+                <Members>
+                    <Member Name="ZZZZZZZZZZ_AI_Alm_HM0" DataType="SINT" Dimension="0" Radix="Decimal" Hidden="true"
+                            ExternalAccess="Read/Write"/>
+                    <Member Name="Beyond" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"
+                            Target="ZZZZZZZZZZ_AI_Alm_HM0" BitNumber="0" ExternalAccess="Read/Write">
+                        <Description>
+                            <![CDATA[- Выход за пределы измерения]]>
+                        </Description>
+                    </Member>
+                    <Member Name="Breakage" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"
+                            Target="ZZZZZZZZZZ_AI_Alm_HM0" BitNumber="1" ExternalAccess="Read/Write">
+                        <Description>
+                            <![CDATA[- Обрыв или КЗ]]>
+                        </Description>
+                    </Member>
+                    <Member Name="Max_Alm" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"
+                            Target="ZZZZZZZZZZ_AI_Alm_HM0" BitNumber="2" ExternalAccess="Read/Write">
+                        <Description>
+                            <![CDATA[- Достигнуто максимальное аварийное значение]]>
+                        </Description>
+                    </Member>
+                    <Member Name="Max_Wrn" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"
+                            Target="ZZZZZZZZZZ_AI_Alm_HM0" BitNumber="3" ExternalAccess="Read/Write">
+                        <Description>
+                            <![CDATA[- Достигнуто максимальное предупредительное значение]]>
+                        </Description>
+                    </Member>
+                    <Member Name="Min_Wrn" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"
+                            Target="ZZZZZZZZZZ_AI_Alm_HM0" BitNumber="4" ExternalAccess="Read/Write">
+                        <Description>
+                            <![CDATA[- Достигнуто минимальное предупредительное значение]]>
+                        </Description>
+                    </Member>
+                    <Member Name="Min_Alm" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"
+                            Target="ZZZZZZZZZZ_AI_Alm_HM0" BitNumber="5" ExternalAccess="Read/Write">
+                        <Description>
+                            <![CDATA[- Достигнуто минимальное аварийное значение]]>
+                        </Description>
+                    </Member>
+                    <Member Name="UControl" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"
+                            Target="ZZZZZZZZZZ_AI_Alm_HM0" BitNumber="6" ExternalAccess="Read/Write">
+                        <Description>
+                            <![CDATA[- Нет напряжения управления]]>
+                        </Description>
+                    </Member>
+                </Members>
+            </DataType>
+            <DataType Name="_AI_Cfg" Family="NoFamily" Class="User">
+                <Description>
+                    <![CDATA[Конфигурация]]>
+                </Description>
+                <Members>
+                    <Member Name="ZZZZZZZZZZ_AI_Cfg0" DataType="SINT" Dimension="0" Radix="Decimal" Hidden="true"
+                            ExternalAccess="Read/Write"/>
+                    <Member Name="Use_External_Alrm" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"
+                            Target="ZZZZZZZZZZ_AI_Cfg0" BitNumber="0" ExternalAccess="Read/Write">
+                        <Description>
+                            <![CDATA[- Использовать внешние сигналы выход за пределы и КЗ]]>
+                        </Description>
+                    </Member>
+                    <Member Name="Use_Gen_Max_Alrm" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"
+                            Target="ZZZZZZZZZZ_AI_Cfg0" BitNumber="1" ExternalAccess="Read/Write">
+                        <Description>
+                            <![CDATA[- Использовать генерацию аварии по максимальному значению]]>
+                        </Description>
+                    </Member>
+                    <Member Name="Use_Gen_Max_Warn" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"
+                            Target="ZZZZZZZZZZ_AI_Cfg0" BitNumber="2" ExternalAccess="Read/Write">
+                        <Description>
+                            <![CDATA[- Использовать генерацию предупреждения по максимальному значению]]>
+                        </Description>
+                    </Member>
+                    <Member Name="Use_Gen_Min_Warn" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"
+                            Target="ZZZZZZZZZZ_AI_Cfg0" BitNumber="3" ExternalAccess="Read/Write">
+                        <Description>
+                            <![CDATA[- Использовать генерацию предупреждения по минимальному значению]]>
+                        </Description>
+                    </Member>
+                    <Member Name="Use_Gen_Min_Alrm" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"
+                            Target="ZZZZZZZZZZ_AI_Cfg0" BitNumber="4" ExternalAccess="Read/Write">
+                        <Description>
+                            <![CDATA[- Использовать генерацию аварии по минимальному значению]]>
+                        </Description>
+                    </Member>
+                    <Member Name="Use_Filter_Signal" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"
+                            Target="ZZZZZZZZZZ_AI_Cfg0" BitNumber="5" ExternalAccess="Read/Write">
+                        <Description>
+                            <![CDATA[- Использовать фильтрацию сигнала]]>
+                        </Description>
+                    </Member>
+                    <Member Name="Use_Scaling" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"
+                            Target="ZZZZZZZZZZ_AI_Cfg0" BitNumber="6" ExternalAccess="Read/Write">
+                        <Description>
+                            <![CDATA[- Использовать масштабирование]]>
+                        </Description>
+                    </Member>
+                    <Member Name="Use_Percent_Ratio" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"
+                            Target="ZZZZZZZZZZ_AI_Cfg0" BitNumber="7" ExternalAccess="Read/Write">
+                        <Description>
+                            <![CDATA[- Использовать вывод отмасштабированного значения в процентах]]>
+                        </Description>
+                    </Member>
+                </Members>
+            </DataType>
+            <DataType Name="_AI_HMI" Family="NoFamily" Class="User">
+                <Description>
+                    <![CDATA[Интерфейс оператора]]>
+                </Description>
+                <Members>
+                    <Member Name="StatI" DataType="INT" Dimension="0" Radix="Decimal" Hidden="false"
+                            ExternalAccess="Read/Write">
+                        <Description>
+                            <![CDATA[- Состояние аналогового входа]]>
+                        </Description>
+                    </Member>
+                    <Member Name="ZZZZZZZZZZ_AI_HMI1" DataType="SINT" Dimension="0" Radix="Decimal" Hidden="true"
+                            ExternalAccess="Read/Write"/>
+                    <Member Name="I_Imit_Mode" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"
+                            Target="ZZZZZZZZZZ_AI_HMI1" BitNumber="0" ExternalAccess="Read/Write">
+                        <Description>
+                            <![CDATA[- Режим имитации (0 = режим автоматический)]]>
+                        </Description>
+                    </Member>
+                    <Member Name="O_CV" DataType="REAL" Dimension="0" Radix="Float" Hidden="false"
+                            ExternalAccess="Read/Write">
+                        <Description>
+                            <![CDATA[- Выходное значение]]>
+                        </Description>
+                    </Member>
+                    <Member Name="O_PR_Value" DataType="REAL" Dimension="0" Radix="Float" Hidden="false"
+                            ExternalAccess="Read/Write">
+                        <Description>
+                            <![CDATA[- Выходное значение в процентах]]>
+                        </Description>
+                    </Member>
+                    <Member Name="Name" DataType="STRING" Dimension="0" Radix="NullType" Hidden="false"
+                            ExternalAccess="Read/Write">
+                        <Description>
+                            <![CDATA[- Описание сигнала]]>
+                        </Description>
+                    </Member>
+                    <Member Name="Number" DataType="STRING" Dimension="0" Radix="NullType" Hidden="false"
+                            ExternalAccess="Read/Write">
+                        <Description>
+                            <![CDATA[- Номер сигнала]]>
+                        </Description>
+                    </Member>
+                </Members>
+            </DataType>
+            <DataType Name="_AI_In" Family="NoFamily" Class="User">
+                <Description>
+                    <![CDATA[Входные]]>
+                </Description>
+                <Members>
+                    <Member Name="In_Aut" DataType="REAL" Dimension="0" Radix="Float" Hidden="false"
+                            ExternalAccess="Read/Write">
+                        <Description>
+                            <![CDATA[- Вход - с модуля]]>
+                        </Description>
+                    </Member>
+                    <Member Name="In_Imit" DataType="REAL" Dimension="0" Radix="Float" Hidden="false"
+                            ExternalAccess="Read/Write">
+                        <Description>
+                            <![CDATA[- Вход - имитация]]>
+                        </Description>
+                    </Member>
+                    <Member Name="ZZZZZZZZZZ_AI_In2" DataType="SINT" Dimension="0" Radix="Decimal" Hidden="true"
+                            ExternalAccess="Read/Write"/>
+                    <Member Name="Imit_Mode" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"
+                            Target="ZZZZZZZZZZ_AI_In2" BitNumber="0" ExternalAccess="Read/Write">
+                        <Description>
+                            <![CDATA[- Режим имитации (0 = автоматический режим)]]>
+                        </Description>
+                    </Member>
+                    <Member Name="Enable" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"
+                            Target="ZZZZZZZZZZ_AI_In2" BitNumber="1" ExternalAccess="Read/Write">
+                        <Description>
+                            <![CDATA[- Разрешение аналогового входа]]>
+                        </Description>
+                    </Member>
+                    <Member Name="UControl" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"
+                            Target="ZZZZZZZZZZ_AI_In2" BitNumber="2" ExternalAccess="Read/Write">
+                        <Description>
+                            <![CDATA[- Напряжение управления]]>
+                        </Description>
+                    </Member>
+                </Members>
+            </DataType>
+            <DataType Name="_AI_Int" Family="NoFamily" Class="User">
+                <Description>
+                    <![CDATA[Внутренние]]>
+                </Description>
+                <Members>
+                    <Member Name="Tmp_In" DataType="REAL" Dimension="0" Radix="Float" Hidden="false"
+                            ExternalAccess="Read/Write">
+                        <Description>
+                            <![CDATA[- Внутреннее значение]]>
+                        </Description>
+                    </Member>
+                    <Member Name="Tmp_Delta" DataType="REAL" Dimension="0" Radix="Float" Hidden="false"
+                            ExternalAccess="Read/Write">
+                        <Description>
+                            <![CDATA[- Дельта]]>
+                        </Description>
+                    </Member>
+                    <Member Name="Tmp_Prev_In" DataType="REAL" Dimension="0" Radix="Float" Hidden="false"
+                            ExternalAccess="Read/Write">
+                        <Description>
+                            <![CDATA[- Предыдущее нормализованное значение]]>
+                        </Description>
+                    </Member>
+                    <Member Name="Tmp_Tim" DataType="TIMER" Dimension="0" Radix="NullType" Hidden="false"
+                            ExternalAccess="Read/Write">
+                        <Description>
+                            <![CDATA[- Время фильтрации]]>
+                        </Description>
+                    </Member>
+                </Members>
+            </DataType>
+            <DataType Name="_AI_Out" Family="NoFamily" Class="User">
+                <Description>
+                    <![CDATA[Выходные]]>
+                </Description>
+                <Members>
+                    <Member Name="CV" DataType="REAL" Dimension="0" Radix="Float" Hidden="false"
+                            ExternalAccess="Read/Write">
+                        <Description>
+                            <![CDATA[- Выходное значение]]>
+                        </Description>
+                    </Member>
+                    <Member Name="ZZZZZZZZZZ_AI_Out1" DataType="SINT" Dimension="0" Radix="Decimal" Hidden="true"
+                            ExternalAccess="Read/Write"/>
+                    <Member Name="Enable" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"
+                            Target="ZZZZZZZZZZ_AI_Out1" BitNumber="0" ExternalAccess="Read/Write">
+                        <Description>
+                            <![CDATA[- Вход - используется]]>
+                        </Description>
+                    </Member>
+                    <Member Name="Normal" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"
+                            Target="ZZZZZZZZZZ_AI_Out1" BitNumber="1" ExternalAccess="Read/Write">
+                        <Description>
+                            <![CDATA[- Вход - в норме]]>
+                        </Description>
+                    </Member>
+                    <Member Name="Breakage" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"
+                            Target="ZZZZZZZZZZ_AI_Out1" BitNumber="2" ExternalAccess="Read/Write">
+                        <Description>
+                            <![CDATA[- Обрыв или КЗ]]>
+                        </Description>
+                    </Member>
+                    <Member Name="Beyond" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"
+                            Target="ZZZZZZZZZZ_AI_Out1" BitNumber="3" ExternalAccess="Read/Write">
+                        <Description>
+                            <![CDATA[- Выход за пределы измерения]]>
+                        </Description>
+                    </Member>
+                    <Member Name="PR_Value" DataType="REAL" Dimension="0" Radix="Float" Hidden="false"
+                            ExternalAccess="Read/Write">
+                        <Description>
+                            <![CDATA[- Выходное значение в процентах]]>
+                        </Description>
+                    </Member>
+                </Members>
+            </DataType>
+            <DataType Name="_AI_Par" Family="NoFamily" Class="User">
+                <Description>
+                    <![CDATA[Параметры]]>
+                </Description>
+                <Members>
+                    <Member Name="In_Min" DataType="REAL" Dimension="0" Radix="Float" Hidden="false"
+                            ExternalAccess="Read/Write">
+                        <Description>
+                            <![CDATA[- Минимальное входное значение]]>
+                        </Description>
+                    </Member>
+                    <Member Name="In_Max" DataType="REAL" Dimension="0" Radix="Float" Hidden="false"
+                            ExternalAccess="Read/Write">
+                        <Description>
+                            <![CDATA[- Максимальное входное значение]]>
+                        </Description>
+                    </Member>
+                    <Member Name="Out_Min" DataType="REAL" Dimension="0" Radix="Float" Hidden="false"
+                            ExternalAccess="Read/Write">
+                        <Description>
+                            <![CDATA[- Минимальное выходное значение]]>
+                        </Description>
+                    </Member>
+                    <Member Name="Out_Max" DataType="REAL" Dimension="0" Radix="Float" Hidden="false"
+                            ExternalAccess="Read/Write">
+                        <Description>
+                            <![CDATA[- Максимальное выходное значение]]>
+                        </Description>
+                    </Member>
+                    <Member Name="FT" DataType="INT" Dimension="0" Radix="Decimal" Hidden="false"
+                            ExternalAccess="Read/Write">
+                        <Description>
+                            <![CDATA[- Постоянная времени фильтра]]>
+                        </Description>
+                    </Member>
+                    <Member Name="RangeType" DataType="SINT" Dimension="0" Radix="Decimal" Hidden="false"
+                            ExternalAccess="Read/Write">
+                        <Description>
+                            <![CDATA[- Тип канала измерения]]>
+                        </Description>
+                    </Member>
+                    <Member Name="MaxA" DataType="REAL" Dimension="0" Radix="Float" Hidden="false"
+                            ExternalAccess="Read/Write">
+                        <Description>
+                            <![CDATA[- Аварийная уставка по максимальному значению]]>
+                        </Description>
+                    </Member>
+                    <Member Name="MaxW" DataType="REAL" Dimension="0" Radix="Float" Hidden="false"
+                            ExternalAccess="Read/Write">
+                        <Description>
+                            <![CDATA[- Предупредительная уставка по максимальному значению]]>
+                        </Description>
+                    </Member>
+                    <Member Name="MinW" DataType="REAL" Dimension="0" Radix="Float" Hidden="false"
+                            ExternalAccess="Read/Write">
+                        <Description>
+                            <![CDATA[- Предупредительная уставка по минимальному значению]]>
+                        </Description>
+                    </Member>
+                    <Member Name="MinA" DataType="REAL" Dimension="0" Radix="Float" Hidden="false"
+                            ExternalAccess="Read/Write">
+                        <Description>
+                            <![CDATA[- Аварийная уставка по минимальному значению]]>
+                        </Description>
+                    </Member>
+                </Members>
+            </DataType>
+            <DataType Name="_DT_DateTime" Family="NoFamily" Class="User">
+                <Description>
+                    <![CDATA[Дата\время]]>
+                </Description>
+                <Members>
+                    <Member Name="Year" DataType="DINT" Dimension="0" Radix="Decimal" Hidden="false"
+                            ExternalAccess="Read/Write">
+                        <Description>
+                            <![CDATA[- Год]]>
+                        </Description>
+                    </Member>
+                    <Member Name="Month" DataType="DINT" Dimension="0" Radix="Decimal" Hidden="false"
+                            ExternalAccess="Read/Write">
+                        <Description>
+                            <![CDATA[- Месяц]]>
+                        </Description>
+                    </Member>
+                    <Member Name="Day" DataType="DINT" Dimension="0" Radix="Decimal" Hidden="false"
+                            ExternalAccess="Read/Write">
+                        <Description>
+                            <![CDATA[- День]]>
+                        </Description>
+                    </Member>
+                    <Member Name="Hour" DataType="DINT" Dimension="0" Radix="Decimal" Hidden="false"
+                            ExternalAccess="Read/Write">
+                        <Description>
+                            <![CDATA[- Час]]>
+                        </Description>
+                    </Member>
+                    <Member Name="Min" DataType="DINT" Dimension="0" Radix="Decimal" Hidden="false"
+                            ExternalAccess="Read/Write">
+                        <Description>
+                            <![CDATA[- Мин]]>
+                        </Description>
+                    </Member>
+                    <Member Name="Sec" DataType="DINT" Dimension="0" Radix="Decimal" Hidden="false"
+                            ExternalAccess="Read/Write">
+                        <Description>
+                            <![CDATA[- Сек]]>
+                        </Description>
+                    </Member>
+                    <Member Name="Msec" DataType="DINT" Dimension="0" Radix="Decimal" Hidden="false"
+                            ExternalAccess="Read/Write">
+                        <Description>
+                            <![CDATA[- Мсек]]>
+                        </Description>
+                    </Member>
+                </Members>
+            </DataType>
+        </DataTypes>
+        <Modules Use="Context">
+            <Module Use="Reference">
+            </Module>
+            <Module Use="Reference">
+            </Module>
+            <Module Use="Reference">
+            </Module>
+            <Module Use="Reference" Name="Local">
+            </Module>
+        </Modules>
+        <Tags Use="Context">
+        </Tags>
+        <Programs Use="Context">
+            <Program Use="Context" Name="MainProgram">
+                <Routines Use="Context">
+                    <Routine Use="Reference" Name="_AI">
+                    </Routine>
+                    <Routine Use="Target" Name="AI" Type="RLL">
+                        <RLLContent>
+                        </RLLContent>
+                    </Routine>
+                </Routines>
+            </Program>
+        </Programs>
+    </Controller>
+</RSLogix5000Content>

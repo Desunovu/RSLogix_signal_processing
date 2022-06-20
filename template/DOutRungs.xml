@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<RLLContent>
+<Rung Number="0" Type="N">
+<Comment>
+<![CDATA[Обработка дискретного выхода:Сигнализация отключено]]>
+</Comment>
+<Text>
+<![CDATA[XIC(Local:6:I.Pt15.Fault)OTE(DO1_Alarm_Off.In.Fault);]]>
+</Text>
+</Rung>
+<Rung Number="1" Type="N">
+<Text>
+<![CDATA[JSR(_DO,1,DO1_Alarm_Off,DO1_Alarm_Off);]]>
+</Text>
+</Rung>
+<Rung Number="2" Type="N">
+<Text>
+<![CDATA[XIC(DO1_Alarm_Off.Out.Out)OTE(Local:6:I.Pt15.Data);]]>
+</Text>
+</Rung>
+</RLLContent>

@@ -1,0 +1,16 @@
+/build/
+/dist/
+/1_AI.L5X
+/1_DI.L5X
+/1_DOut.L5X
+/2_AI.L5X
+/2_DI.L5X
+/2_DOut.L5X
+/RSLogix_generator.spec
+/.idea/.gitignore
+/.idea/.name
+/.idea/misc.xml
+/.idea/modules.xml
+/.idea/inspectionProfiles/profiles_settings.xml
+/.idea/RSLogix.iml
+/.idea/vcs.xml

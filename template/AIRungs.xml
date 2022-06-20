@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<RLLContent>
+<Rung Number="0" Type="N">
+<Comment>
+<![CDATA[Обработка аналогового датчика: SAMPLETEXT
+]]>
+</Comment>
+<Text>
+<![CDATA[XIO(AI1_FT3_WaterFlow.In.Imit_Mode)MOV(Local:8:I.Ch02.Data,AI1_FT3_WaterFlow.In.In_Aut);]]>
+</Text>
+</Rung>
+<Rung Number="1" Type="N">
+<Text>
+<![CDATA[JSR(_AI,1,AI1_FT3_WaterFlow,AI1_FT3_WaterFlow);]]>
+</Text>
+</Rung>
+</RLLContent>
