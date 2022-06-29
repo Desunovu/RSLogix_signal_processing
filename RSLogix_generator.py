@@ -1,44 +1,12 @@
 ﻿import re
 import time
-import xml.etree.ElementTree
+import xml.etree.ElementTree  # только для упрощения работы в IDE
 import lxml.etree as ET
 import pylightxl as xl
+import easygui
 
+from settings import *
 parser = ET.XMLParser(strip_cdata=False)
-
-EXCELFILE = "data.xlsx"
-
-format = 2
-if __name__ == "__main__":
-    format = input("[Введите число] Старый формат - 2, новый формат - 1: ")
-if format == "2":
-    AI_TEMPLATE = "example_rout/old/AI_old.L5X"
-    DI_TEMPLATE = "example_rout/old/DI_old.L5X"
-    DOut_TEMPLATE = "example_rout/old/DOut_old.L5X"
-else:
-    AI_TEMPLATE = "example_rout/new/AI.L5X"
-    DI_TEMPLATE = "example_rout/new/DI.L5X"
-    DOut_TEMPLATE = "example_rout/new/DOut.L5X"
-
-AI_TAG = "template/AITag.xml"
-AI_RUNGS = "template/AIRungs.xml"
-DI_TAG = "template/DITag.xml"
-DI_RUNGS = "template/DIRungs.xml"
-DOut_TAG = "template/DOutTag.xml"
-DOut_RUNGS = "template/DOutRungs.xml"
-
-AI_OUTPUT = "AI.L5X"
-DI_OUTPUT = "DI.L5X"
-DOut_OUTPUT = "DOut.L5X"
-
-_ROUTINE = 0
-_TAG_NAME = 1
-_ADDR = 2
-_DESCA = 5
-_DESCB = 6
-_DESCC = 7
-_DESCD = 8
-_DESCE = 9
 
 lines_skipped = 0
 
@@ -85,9 +53,9 @@ def createAIRungs(tag_name, comment, no, local):
     for i, rung in enumerate(new_rungs):
         rung.set("Number", f"{3*no + i}")
 
-        if format == "1":
+        if controllertype == "PLC_LO1_IAT":
             local_str = f"Local:{local[0]}:I.Ch{local[2]}."
-        else:
+        if controllertype == "Iat1769":
             local_str = f"Local:{local[0]}:I.Ch{int(local[2])}"
 
         if i == 0:
@@ -103,10 +71,10 @@ def createDIRungs(tag_name, comment, no, local):
     for i, rung in enumerate(new_rungs):
         rung.set("Number", f"{3*no + i}")
 
-        if format == "1":
+        if controllertype == "PLC_LO1_IAT":
             local_str = f"Local:{local[0]}:I.Pt{local[2]}"
             local_end_str = ""
-        else:
+        if controllertype == "Iat1769":
             local_str = f"Local:{local[0]}:I"
             local_end_str = f".{int(local[2])}"
 
@@ -125,11 +93,11 @@ def createDOutRungs(tag_name, comment, no, local):
     for i, rung in enumerate(new_rungs):
         rung.set("Number", f"{3*no + i}")
 
-        if format == "1":
+        if controllertype == "PLC_LO1_IAT":
             local_str = f"Local:{local[0]}:I.Pt{local[2]}."
             local_sec_str = f"Local:{local[0]}:LETTER.Pt{local[2]}."
             local_end_str = ""
-        else:
+        if controllertype == "Iat1769":
             local_str = f"Local:{local[0]}:I"
             local_sec_str = f"Local:{local[0]}:LETTER"
             local_end_str = f".{int(local[2])}"
@@ -169,14 +137,15 @@ def addRungs(controller:xml.etree.ElementTree.Element, ttype="", tag_name="", co
         rllcontent.append(new_rung)
     print(f"{no}) Добавлена обработка {local[0]}/{local[2]} {tag_name} : {comment}\n")
 
-def getexceldata(filename=EXCELFILE):
+def getexceldata(filename):
     data = xl.readxl(fn=filename)
     return data
 
 if __name__ == "__main__":
     try:
         # Таблица EXCEL
-        data = getexceldata()
+        file = easygui.fileopenbox(msg="Exel файл для обработки", default="./import/*.xlsx", filetypes=["*.xlsx"])
+        data = getexceldata(file)
 
         # Структура файла AI.L5X
         ai_tree = ET.parse(source=AI_TEMPLATE, parser=parser)
@@ -206,50 +175,50 @@ if __name__ == "__main__":
         # проход по строкам xlsx файла
         for row in data.ws(ws="Sheet1").rows:
             # пропуск первой строки
-            if row[_ROUTINE] == "ИМЯ ПО":
+            if row[ROUTINE] == "ИМЯ ПО":
                 continue
 
-            if not row[_ADDR]:
+            if not row[ADDR]:
                 continue
             # Далее выполняется если ADDR заполнена верно
-            elif re.match(r'^([I]|[Q])[:][0-9]{1,2}[/][0-9]{2}$', row[_ADDR]):
+            elif re.match(r'^([I]|[Q])[:][0-9]{1,2}[/][0-9]{2}$', row[ADDR]):
 
                 # Информация из строки EXEL - Имя тега, описание, local
-                tag_name = row[_TAG_NAME]
+                tag_name = row[TAG_NAME]
                 if tag_name == "":
-                    print(f"Отсутствует имя тега у {row[_ADDR]}, пропуск итерации\n")
+                    print(f"Отсутствует имя тега у {row[ADDR]}, пропуск итерации\n")
                     lines_skipped += 1
                     continue
 
-                tag_description = f"{row[_DESCA]} {row[_DESCB]} {row[_DESCC]} {row[_DESCD]} {row[_DESCE]}"
+                tag_description = f"{row[DESCA]} {row[DESCB]} {row[DESCC]} {row[DESCD]} {row[DESCE]}"
 
                 rungs_comment = "ОПИСАНИЕ"
 
-                letter = row[_ADDR].split(":")[0]
-                index1 = row[_ADDR].split(":")[1].split("/")[0]
-                index2 = row[_ADDR].split(":")[1].split("/")[1]
+                letter = row[ADDR].split(":")[0]
+                index1 = row[ADDR].split(":")[1].split("/")[0]
+                index2 = row[ADDR].split(":")[1].split("/")[1]
                 local = (index1, letter, index2)
 
                 # Определение типа - AI/DI/DOut
                 controller = None
                 ttype = ""
-                if "AI" in row[_ROUTINE]:
+                if "AI" in row[ROUTINE]:
                     controller = ai_controller
                     ttype = "AI"
                     i = ai
                     ai += 1
-                elif "DI" in row[_ROUTINE]:
+                elif "DI" in row[ROUTINE]:
                     controller = di_controller
                     ttype = "DI"
                     i = di
                     di += 1
-                elif "DO" in row[_ROUTINE]:
+                elif "DO" in row[ROUTINE]:
                     controller = dout_controller
                     ttype = "DOut"
                     i = do
                     do += 1
                 else:
-                    print(f"НЕВЕРНОЕ ИМЯ ПО ({row[_ROUTINE]}) У {row[_ADDR]}, ЗАВЕРШЕНИЕ С ОШИБКОЙ\n")
+                    print(f"НЕВЕРНОЕ ИМЯ ПО ({row[ROUTINE]}) У {row[ADDR]}, ЗАВЕРШЕНИЕ С ОШИБКОЙ\n")
                     raise Exception
                 print(f"{ttype} - {tag_name} - {tag_description}")
 
@@ -271,7 +240,7 @@ if __name__ == "__main__":
                 )
                 #time.sleep(0.01)
             else:
-                print(f"НЕВЕРНЫЙ LOCAL: {row[_ADDR]}, ЗАВЕРШЕНИЕ С ОШИБКОЙ\n")
+                print(f"НЕВЕРНЫЙ LOCAL: {row[ADDR]}, ЗАВЕРШЕНИЕ С ОШИБКОЙ\n")
                 raise Exception
 
 
@@ -281,10 +250,10 @@ if __name__ == "__main__":
         #    printRungs(controller)
 
         try:
-            ai_tree.write(f"{format}_{AI_OUTPUT}", encoding="UTF-8", xml_declaration=True)
-            di_tree.write(f"{format}_{DI_OUTPUT}", encoding="UTF-8", xml_declaration=True)
-            dout_tree.write(f"{format}_{DOut_OUTPUT}", encoding="UTF-8", xml_declaration=True)
-            print(f"Файлы {format}_*.L5X успешно записаны!")
+            ai_tree.write(f"{controllertype}_{AI_OUTPUT}", encoding="UTF-8", xml_declaration=True)
+            di_tree.write(f"{controllertype}_{DI_OUTPUT}", encoding="UTF-8", xml_declaration=True)
+            dout_tree.write(f"{controllertype}_{DOut_OUTPUT}", encoding="UTF-8", xml_declaration=True)
+            print(f"Файлы {controllertype}_*.L5X успешно записаны!")
         except Exception as ex:
             print(ex)
             print("При записи файлов произошла ошибка. Возможно файлы не сохранены")
