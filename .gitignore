@@ -10,3 +10,5 @@
 /.idea/vcs.xml
 /*.L5X
 /featuretest.py
+/.idea/RSLogix_signal_processing.iml
+/dist.7z
