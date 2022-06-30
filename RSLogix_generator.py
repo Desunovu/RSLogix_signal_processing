@@ -121,7 +121,7 @@ def addTag(controller:xml.etree.ElementTree.Element, ttype="", tag_name="", desc
     if ttype == "DOut":
         new_tag = createDOutTag(tag_name=tag_name, description=description, no=no)
     tags.append(new_tag)
-    print(f"{no}) Добавлен тег {local[0]}/{local[2]} {tag_name}")
+    print(f"{no}) Добавлен тег {row[ADDR]} {tag_name}")
 
 
 def addRungs(controller:xml.etree.ElementTree.Element, ttype="", tag_name="", comment="", no=0, local=("99", "I", "99")):
@@ -135,7 +135,7 @@ def addRungs(controller:xml.etree.ElementTree.Element, ttype="", tag_name="", co
         new_rungs = createDOutRungs(tag_name=tag_name, comment=comment, no=no, local=local)
     for new_rung in new_rungs:
         rllcontent.append(new_rung)
-    print(f"{no}) Добавлена обработка {local[0]}/{local[2]} {tag_name} : {comment}\n")
+    print(f"{no}) Добавлена обработка {row[ADDR]} {tag_name} : {comment}\n")
 
 def getexceldata(filename):
     data = xl.readxl(fn=filename)
@@ -144,7 +144,7 @@ def getexceldata(filename):
 if __name__ == "__main__":
     try:
         # Таблица EXCEL
-        file = easygui.fileopenbox(msg="Exel файл для обработки", default="./import/*.xlsx", filetypes=["*.xlsx"])
+        file = easygui.fileopenbox(msg="Выберите XLSX файл. Signal processing for InTA", default="./import/*.xlsx", filetypes=["*.xlsx"])
         data = getexceldata(file)
 
         # Структура файла AI.L5X
@@ -178,10 +178,10 @@ if __name__ == "__main__":
             if row[ROUTINE] == "ИМЯ ПО":
                 continue
 
-            if not row[ADDR]:
+            if not row[ADDR].strip():
                 continue
             # Далее выполняется если ADDR заполнена верно
-            elif re.match(r'^([I]|[Q])[:][0-9]{1,2}[/][0-9]{2}$', row[ADDR]):
+            elif re.match(r'^([I]|[Q]){1}[W]{0,1}[:][0-9]{1,2}[/][0-9]{2}$', row[ADDR].strip()):
 
                 # Информация из строки EXEL - Имя тега, описание, local
                 tag_name = row[TAG_NAME]
@@ -192,11 +192,14 @@ if __name__ == "__main__":
 
                 tag_description = f"{row[DESCA]} {row[DESCB]} {row[DESCC]} {row[DESCD]} {row[DESCE]}"
 
-                rungs_comment = "ОПИСАНИЕ"
+                try:
+                    rungs_comment = row[ROUT_DESC]
+                except:
+                    rungs_comment = ""
 
-                letter = row[ADDR].split(":")[0]
-                index1 = row[ADDR].split(":")[1].split("/")[0]
-                index2 = row[ADDR].split(":")[1].split("/")[1]
+                letter = row[ADDR].strip().split(":")[0]
+                index1 = row[ADDR].strip().split(":")[1].split("/")[0]
+                index2 = row[ADDR].strip().split(":")[1].split("/")[1]
                 local = (index1, letter, index2)
 
                 # Определение типа - AI/DI/DOut
@@ -220,7 +223,7 @@ if __name__ == "__main__":
                 else:
                     print(f"НЕВЕРНОЕ ИМЯ ПО ({row[ROUTINE]}) У {row[ADDR]}, ЗАВЕРШЕНИЕ С ОШИБКОЙ\n")
                     raise Exception
-                print(f"{ttype} - {tag_name} - {tag_description}")
+                print(f"{ttype} - {row[ADDR]} - {tag_name} - {tag_description}")
 
                 # Добавление тега и строк в нужную рутину
                 addTag(
@@ -250,10 +253,10 @@ if __name__ == "__main__":
         #    printRungs(controller)
 
         try:
-            ai_tree.write(f"{controllertype}_{AI_OUTPUT}", encoding="UTF-8", xml_declaration=True)
-            di_tree.write(f"{controllertype}_{DI_OUTPUT}", encoding="UTF-8", xml_declaration=True)
-            dout_tree.write(f"{controllertype}_{DOut_OUTPUT}", encoding="UTF-8", xml_declaration=True)
-            print(f"Файлы {controllertype}_*.L5X успешно записаны!")
+            ai_tree.write(f"{controllerversion}_{AI_OUTPUT}", encoding="UTF-8", xml_declaration=True)
+            di_tree.write(f"{controllerversion}_{DI_OUTPUT}", encoding="UTF-8", xml_declaration=True)
+            dout_tree.write(f"{controllerversion}_{DOut_OUTPUT}", encoding="UTF-8", xml_declaration=True)
+            print(f"Файлы {controllerversion}_*.L5X успешно записаны!")
         except Exception as ex:
             print(ex)
             print("При записи файлов произошла ошибка. Возможно файлы не сохранены")

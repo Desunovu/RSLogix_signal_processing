@@ -1,7 +1,13 @@
 # RSLogix_signal_processing
+---
 
-1. Описание
-2. Содержание example_rout и template
-3. Содержание data.xlsx
-4. Установка скрипта / сборка скрипта в exe
-5. Запуск скрипта
+### **Описание**
+### **Содержание example_rout и template**
+### **Содержание каталога import**
+
+### **Установка скрипта / сборка скрипта в exe** 
+- Зависимости: *lxml.etree, pylightxl, easygui*
+- Для теста скрипта из исходников удобнее всего подключить их как проект в IDE (PyCharm), настроить интерпретатор python и подгрузить в проект зависимости
+- Для сборки в exe требуется pyinstaller: ```pyinstaller -F .\RSLogix_generator.py```. К готовому exe поместить каталоги example_rout, template и import 
+
+### **Запуск скрипта**

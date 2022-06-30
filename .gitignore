@@ -12,3 +12,6 @@
 /featuretest.py
 /.idea/RSLogix_signal_processing.iml
 /dist.7z
+/testfeatures.py
+/import/~$data.xlsx
+/import/~$PLC.xlsx
