@@ -9,7 +9,10 @@ from settings import *
 parser = ET.XMLParser(strip_cdata=False)
 
 lines_skipped = 0
-
+lines_done = 0
+ai_lines = 0
+di_lines = 0
+do_lines = 0
 
 def printTags(controller:xml.etree.ElementTree.Element):
     tags = controller.find("Tags")
@@ -208,18 +211,18 @@ if __name__ == "__main__":
                 if "AI" in row[ROUTINE]:
                     controller = ai_controller
                     ttype = "AI"
-                    i = ai
-                    ai += 1
+                    i = ai_lines
+                    ai_lines += 1
                 elif "DI" in row[ROUTINE]:
                     controller = di_controller
                     ttype = "DI"
-                    i = di
-                    di += 1
+                    i = di_lines
+                    di_lines += 1
                 elif "DO" in row[ROUTINE]:
                     controller = dout_controller
                     ttype = "DOut"
-                    i = do
-                    do += 1
+                    i = do_lines
+                    do_lines += 1
                 else:
                     print(f"НЕВЕРНОЕ ИМЯ ПО ({row[ROUTINE]}) У {row[ADDR]}, ЗАВЕРШЕНИЕ С ОШИБКОЙ\n")
                     raise Exception

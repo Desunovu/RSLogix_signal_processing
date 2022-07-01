@@ -1,28 +1,33 @@
+import dotenv
 import os
 import easygui
 
-ROUTINE = 0
-TAG_NAME = 12
-ROUT_DESC = 13
-ADDR = 1
-DESCA = 4
-DESCB = 5
-DESCC = 6
-DESCD = 7
-DESCE = 8
+
+dotenv.load_dotenv()
 
 
-AI_OUTPUT = "AI.L5X"
-DI_OUTPUT = "DI.L5X"
-DOut_OUTPUT = "DOut.L5X"
+ROUTINE = int(os.environ.get("ROUTINE"))
+TAG_NAME = int(os.environ.get("TAG_NAME"))
+ROUT_DESC = int(os.environ.get("ROUT_DESC"))
+ADDR = int(os.environ.get("ADDR"))
+DESCA = int(os.environ.get("DESCA"))
+DESCB = int(os.environ.get("DESCB"))
+DESCC = int(os.environ.get("DESCC"))
+DESCD = int(os.environ.get("DESCD"))
+DESCE = int(os.environ.get("DESCE"))
 
 
-AI_TAG = "template/AITag.xml"
-AI_RUNGS = "template/AIRungs.xml"
-DI_TAG = "template/DITag.xml"
-DI_RUNGS = "template/DIRungs.xml"
-DOut_TAG = "template/DOutTag.xml"
-DOut_RUNGS = "template/DOutRungs.xml"
+AI_OUTPUT = os.environ.get("AI_OUTPUT")
+DI_OUTPUT = os.environ.get("DI_OUTPUT")
+DOut_OUTPUT = os.environ.get("DOUT_OUTPUT")
+
+
+AI_TAG = os.environ.get("AI_TAG")
+AI_RUNGS = os.environ.get("AI_RUNGS")
+DI_TAG = os.environ.get("DI_TAG")
+DI_RUNGS = os.environ.get("DI_RUNGS")
+DOut_TAG = os.environ.get("DOUT_TAG")
+DOut_RUNGS = os.environ.get("DOUT_RUNGS")
 
 controllers = os.listdir("./example_rout")
 controllerversion = easygui.choicebox(msg='Выберите версию', title="Signal processing for InTA", choices=list(map(lambda x: x.split(" ")[0], controllers)))
