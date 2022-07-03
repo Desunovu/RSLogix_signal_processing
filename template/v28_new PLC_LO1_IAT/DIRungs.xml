@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<RLLContent>
+    <Rung Number="0" Type="N">
+        <Comment>
+            <![CDATA[Обработка дискретного входа: [*tag_name*] - [*rung_comment]
+]]>
+        </Comment>
+        <Text>
+            <![CDATA[[XIO(DI1_FT_Overtemperature.In.Imit_Mode) XIC(Local:1:I.Pt00.Data) ,XIC(DI1_FT_Overtemperature.In.Imit_Mode) XIC(DI1_FT_Overtemperature.In.In_Imit) ]OTE(DI1_FT_Overtemperature.In.In_Aut);]]>
+        </Text>
+    </Rung>
+    <Rung Number="1" Type="N">
+        <Text>
+            <![CDATA[XIO(DI1_FT_Overtemperature.In.Imit_Mode)XIC(Local:1:I.Pt00.Fault)OTE(DI1_FT_Overtemperature.In.Fault);]]>
+        </Text>
+    </Rung>
+    <Rung Number="2" Type="N">
+        <Text>
+            <![CDATA[JSR(_DI,1,DI1_FT_Overtemperature,DI1_FT_Overtemperature);]]>
+        </Text>
+    </Rung>
+</RLLContent>

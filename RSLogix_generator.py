@@ -6,15 +6,41 @@ import pylightxl as xl
 import easygui
 
 from settings import *
+
 parser = ET.XMLParser(strip_cdata=False)
 
 lines_skipped = 0
-lines_done = 0
 ai_lines = 0
 di_lines = 0
-do_lines = 0
+dout_lines = 0
 
-def printTags(controller:xml.etree.ElementTree.Element):
+
+class LocalData:
+    def __init__(self, address):
+        self.address = address
+        self.l_char = self.address.strip().split(":")[0]
+        self.l_index1 = self.address.strip().split(":")[1].split("/")[0]
+        self.l_index2 = self.address.strip().split(":")[1].split("/")[1]
+
+
+def replace_all_in_cdata(text_string: str, tag_name: str, rung_comment: str, tag_description: str, local: LocalData):
+    string = text_string
+    replacements = {
+        "[*tag_name*]": tag_name,
+        "[*rung_comment*]": rung_comment,
+        "[*l_char*]": local.l_char,
+        "[*l_index1*]": local.l_index1,
+        "[*l_index2*]": local.l_index2,
+        "[*tag_description*]": tag_description
+    }
+
+    for key in replacements.keys():
+        string = string.replace(key, replacements[key])
+
+    return string.strip()
+
+
+def print_tags(controller: xml.etree.ElementTree.Element):
     tags = controller.find("Tags")
     if len(tags.findall("Tag")) == 0:
         print(f"{controller.attrib} - NO TAGS FOUND")
@@ -22,250 +48,197 @@ def printTags(controller:xml.etree.ElementTree.Element):
         print(tag.attrib)
 
 
-def printRungs(controller:xml.etree.ElementTree.Element):
+def print_rungs(controller: xml.etree.ElementTree.Element):
     rllcontent = controller.find("Programs").find("Program").find("Routines").findall("Routine")[1].find("RLLContent")
-    if (len(rllcontent.findall("Rung"))==0):
+    if len(rllcontent.findall("Rung")) == 0:
         print(f"{controller.attrib} - NO RUNGS FOUND")
     for rung in rllcontent.findall("Rung"):
         print(rung.attrib)
 
 
-def createAITag(tag_name, description, no):
-    new_tag = ET.parse(AI_TAG, parser=parser).getroot()
+def create_tag(tag_file, tag_name, tag_description, no):
+    new_tag = ET.parse(tag_file, parser=parser).getroot()
     new_tag.set("Name", tag_name)
-    new_tag.find("Description").text = ET.CDATA(description)
+    new_tag.find("Description").text = ET.CDATA(tag_description)
     return new_tag
 
 
-def createDITag(tag_name, description, no):
-    new_tag = ET.parse(DI_TAG, parser=parser).getroot()
-    new_tag.set("Name", tag_name)
-    new_tag.find("Description").text = ET.CDATA(description)
-    return new_tag
-
-
-def createDOutTag(tag_name, description, no):
-    new_tag = ET.parse(DOut_TAG, parser=parser).getroot()
-    new_tag.set("Name", tag_name)
-    new_tag.find("Description").text = ET.CDATA(description)
-    return new_tag
-
-
-def createAIRungs(tag_name, comment, no, local):
-    new_rungs = ET.parse(AI_RUNGS, parser=parser).getroot().findall("Rung")
+def create_rungs(rungs_file: str, tag_name: str, rung_comment: str, no: int, local: LocalData):
+    new_rungs = ET.parse(rungs_file, parser=parser).getroot().findall("Rung")
     for i, rung in enumerate(new_rungs):
-        rung.set("Number", f"{3*no + i}")
+        rung.set("Number", f"{3 * no + i}")
 
-        if controllertype == "PLC_LO1_IAT":
-            local_str = f"Local:{local[0]}:I.Ch{local[2]}."
-        if controllertype == "Iat1769":
-            local_str = f"Local:{local[0]}:I.Ch{int(local[2])}"
+        try:
+            new_comment = replace_all_in_cdata(text_string=rung.find("Comment").text, tag_name=tag_name,
+                                               rung_comment=rung_comment, tag_description="???", local=local)
+            rung.find("Comment").text = ET.CDATA(new_comment)
+        except:
+            pass
+        new_text = replace_all_in_cdata(text_string=rung.find("Text").text, tag_name=tag_name,
+                                        rung_comment=rung_comment, tag_description="???", local=local)
+        rung.find("Text").text = ET.CDATA(new_text)
 
-        if i == 0:
-            rung.find("Comment").text = ET.CDATA(f"Обработка аналогового датчика: {comment}")
-            rung.find("Text").text = ET.CDATA(f"XIO({tag_name}.In.Imit_Mode)MOV({local_str}Data,{tag_name}.In.In_Aut);")
-        if i == 1:
-            rung.find("Text").text = ET.CDATA(f"JSR(_AI,1,{tag_name},{tag_name});")
     return new_rungs
 
 
-def createDIRungs(tag_name, comment, no, local):
-    new_rungs = ET.parse(DI_RUNGS, parser=parser).getroot().findall("Rung")
-    for i, rung in enumerate(new_rungs):
-        rung.set("Number", f"{3*no + i}")
-
-        if controllertype == "PLC_LO1_IAT":
-            local_str = f"Local:{local[0]}:I.Pt{local[2]}"
-            local_end_str = ""
-        if controllertype == "Iat1769":
-            local_str = f"Local:{local[0]}:I"
-            local_end_str = f".{int(local[2])}"
-
-        if i == 0:
-            rung.find("Comment").text = ET.CDATA(f"Обработка дискретного входа: {comment}")
-            rung.find("Text").text = ET.CDATA(f"[XIO({tag_name}.In.Imit_Mode) XIC({local_str}.Data{local_end_str}) ,XIC({tag_name}.In.Imit_Mode) XIC({tag_name}.In.In_Imit) ]OTE({tag_name}.In.In_Aut);")
-        if i == 1:
-            rung.find("Text").text = ET.CDATA(f"XIO({tag_name}.In.Imit_Mode)XIC({local_str}.Fault{local_end_str})OTE({tag_name}.In.Fault);")
-        if i == 2:
-            rung.find("Text").text = ET.CDATA(f"JSR(_DI,1,{tag_name},{tag_name});")
-    return new_rungs
-
-
-def createDOutRungs(tag_name, comment, no, local):
-    new_rungs = ET.parse(DOut_RUNGS, parser=parser).getroot().findall("Rung")
-    for i, rung in enumerate(new_rungs):
-        rung.set("Number", f"{3*no + i}")
-
-        if controllertype == "PLC_LO1_IAT":
-            local_str = f"Local:{local[0]}:I.Pt{local[2]}."
-            local_sec_str = f"Local:{local[0]}:LETTER.Pt{local[2]}."
-            local_end_str = ""
-        if controllertype == "Iat1769":
-            local_str = f"Local:{local[0]}:I"
-            local_sec_str = f"Local:{local[0]}:LETTER"
-            local_end_str = f".{int(local[2])}"
-
-        if i == 0:
-            rung.find("Comment").text = ET.CDATA(f"Обработка дискретного выхода: {comment}")
-            rung.find("Text").text = ET.CDATA(f"XIC({local_str}.Fault{local_end_str})OTE(DOSAMPLE.In.Fault);") # OTE(DO1_Alarm_Off.In.Fault)
-        if i == 1:
-            rung.find("Text").text = ET.CDATA(f"JSR(_DO,1,DOSAMPLE,DOSAMPLE);")
-        if i == 2:
-            rung.find("Text").text = ET.CDATA(f"XIC(DOSAMPLE.Out.Out)OTE({local_sec_str}.Data{local_end_str});")
-    return new_rungs
-
-def addTag(controller:xml.etree.ElementTree.Element, ttype="", tag_name="", description="", no=0):
+def add_tag(controller: xml.etree.ElementTree.Element, ttype="", tag_name="", tag_description="", no=0):
     tags = controller.find("Tags")
-    new_tag = None
+
+    tag_file = None
     if ttype == "AI":
-        new_tag = createAITag(tag_name=tag_name, description=description, no=no)
+        tag_file = AI_TAG
     if ttype == "DI":
-        new_tag = createDITag(tag_name=tag_name, description=description, no=no)
+        tag_file = DI_TAG
     if ttype == "DOut":
-        new_tag = createDOutTag(tag_name=tag_name, description=description, no=no)
+        tag_file = DOUT_TAG
+
+    new_tag = create_tag(tag_file=tag_file, tag_name=tag_name, tag_description=tag_description, no=no)
     tags.append(new_tag)
     print(f"{no}) Добавлен тег {row[ADDR]} {tag_name}")
 
 
-def addRungs(controller:xml.etree.ElementTree.Element, ttype="", tag_name="", comment="", no=0, local=("99", "I", "99")):
+def add_rungs(controller: xml.etree.ElementTree.Element, routine: str, tag_name: str, rung_comment: str, no: int,
+              local: LocalData):
     rllcontent = controller.find("Programs").find("Program").find("Routines").findall("Routine")[1].find("RLLContent")
-    new_rungs = None
-    if ttype == "AI":
-        new_rungs = createAIRungs(tag_name=tag_name, comment=comment, no=no, local=local)
-    if ttype == "DI":
-        new_rungs = createDIRungs(tag_name=tag_name, comment=comment, no=no, local=local)
-    if ttype == "DOut":
-        new_rungs = createDOutRungs(tag_name=tag_name, comment=comment, no=no, local=local)
+
+    rungs_file = None
+    if routine == "AI":
+        rungs_file = AI_RUNGS
+    if routine == "DI":
+        rungs_file = DI_RUNGS
+    if routine == "DOut":
+        rungs_file = DOUT_RUNGS
+
+    new_rungs = create_rungs(rungs_file=rungs_file, tag_name=tag_name, rung_comment=rung_comment, no=no, local=local)
     for new_rung in new_rungs:
         rllcontent.append(new_rung)
-    print(f"{no}) Добавлена обработка {row[ADDR]} {tag_name} : {comment}\n")
+    print(f"{no}) Добавлена обработка {local.address} {tag_name} : {rung_comment}\n")
 
-def getexceldata(filename):
+
+def get_excel_data(filename):
     data = xl.readxl(fn=filename)
     return data
+
 
 if __name__ == "__main__":
     try:
         # Таблица EXCEL
-        file = easygui.fileopenbox(msg="Выберите XLSX файл. Signal processing for InTA", default="./import/*.xlsx", filetypes=["*.xlsx"])
-        data = getexceldata(file)
+        file = easygui.fileopenbox(msg="Выберите XLSX файл. Signal processing for InTA", default="./import/*.xlsx",
+                                   filetypes=["*.xlsx"])
+        data = get_excel_data(file)
 
         # Структура файла AI.L5X
-        ai_tree = ET.parse(source=AI_TEMPLATE, parser=parser)
+        ai_tree = ET.parse(source=AI_EMPTY_FILE, parser=parser)
         ai_root = ai_tree.getroot()
         ai_controller = ai_root[0]
 
         # Структура файла DI.L5X
-        di_tree = ET.parse(source=DI_TEMPLATE, parser=parser)
+        di_tree = ET.parse(source=DI_EMPTY_FILE, parser=parser)
         di_root = di_tree.getroot()
         di_controller = di_root[0]
 
         # Структура файла DOut.L5X
-        dout_tree = ET.parse(source=DOut_TEMPLATE, parser=parser)
+        dout_tree = ET.parse(source=DOUT_EMPTY_FILE, parser=parser)
         dout_root = dout_tree.getroot()
         dout_controller = dout_root[0]
 
         # Проверим что шаблоны не заполнены
-        #for controller in (ai_controller, di_controller, dout_controller):
-        #    printTags(controller)
-        #    printRungs(controller)
+        # for controller in (ai_controller, di_controller, dout_controller):
+        #    print_tags(controller)
+        #    print_rungs(controller)
 
         # Построчное считывание и добавление тегов и строк в структуры
-        ai = 0
-        di = 0
-        do = 0
         i = 0
         # проход по строкам xlsx файла
         for row in data.ws(ws="Sheet1").rows:
+            routine = row[ROUTINE]
+            address = row[ADDR]
+            tag_name = row[TAG_NAME]
+
             # пропуск первой строки
-            if row[ROUTINE] == "ИМЯ ПО":
+            if routine == "ИМЯ ПО":
                 continue
 
-            if not row[ADDR].strip():
+            # пропуск если строка адреса пустая
+            if not address.strip():
                 continue
-            # Далее выполняется если ADDR заполнена верно
-            elif re.match(r'^([I]|[Q]){1}[W]{0,1}[:][0-9]{1,2}[/][0-9]{2}$', row[ADDR].strip()):
 
-                # Информация из строки EXEL - Имя тега, описание, local
-                tag_name = row[TAG_NAME]
-                if tag_name == "":
-                    print(f"Отсутствует имя тега у {row[ADDR]}, пропуск итерации\n")
+            # блок выполняется только если ADDR записан верно
+            elif re.match(r'^([I]|[Q]){1}[W]{0,1}[:][0-9]{1,2}[/][0-9]{2}$', address.strip()):
+
+                # пропуск если стока имени тега пустая
+                if not tag_name.strip():
+                    print(f"Отсутствует имя тега у {address}, пропуск итерации\n")
                     lines_skipped += 1
                     continue
 
                 tag_description = f"{row[DESCA]} {row[DESCB]} {row[DESCC]} {row[DESCD]} {row[DESCE]}"
 
                 try:
-                    rungs_comment = row[ROUT_DESC]
+                    rung_comment = row[ROUT_DESC]
                 except:
-                    rungs_comment = ""
-
-                letter = row[ADDR].strip().split(":")[0]
-                index1 = row[ADDR].strip().split(":")[1].split("/")[0]
-                index2 = row[ADDR].strip().split(":")[1].split("/")[1]
-                local = (index1, letter, index2)
+                    rung_comment = ""
 
                 # Определение типа - AI/DI/DOut
                 controller = None
-                ttype = ""
-                if "AI" in row[ROUTINE]:
+                if "AI" in routine:
                     controller = ai_controller
-                    ttype = "AI"
+                    routine = "AI"
                     i = ai_lines
                     ai_lines += 1
-                elif "DI" in row[ROUTINE]:
+                elif "DI" in routine:
                     controller = di_controller
-                    ttype = "DI"
+                    routine = "DI"
                     i = di_lines
                     di_lines += 1
-                elif "DO" in row[ROUTINE]:
+                elif "DO" in routine:
                     controller = dout_controller
-                    ttype = "DOut"
-                    i = do_lines
-                    do_lines += 1
+                    routine = "DOut"
+                    i = dout_lines
+                    dout_lines += 1
                 else:
-                    print(f"НЕВЕРНОЕ ИМЯ ПО ({row[ROUTINE]}) У {row[ADDR]}, ЗАВЕРШЕНИЕ С ОШИБКОЙ\n")
+                    print(f"НЕВЕРНОЕ ИМЯ ПО ({routine}) У {address}, ЗАВЕРШЕНИЕ С ОШИБКОЙ\n")
                     raise Exception
-                print(f"{ttype} - {row[ADDR]} - {tag_name} - {tag_description}")
+                print(f"{routine} - {address} - {tag_name} - {tag_description}")
 
                 # Добавление тега и строк в нужную рутину
-                addTag(
+                add_tag(
                     controller=controller,
-                    ttype=ttype,
+                    ttype=routine,
                     tag_name=tag_name,
-                    description=tag_description,
+                    tag_description=tag_description,
                     no=int(i)
                 )
-                addRungs(
+                local = LocalData(address)
+                add_rungs(
                     controller=controller,
-                    ttype=ttype,
+                    routine=routine,
                     tag_name=tag_name,
-                    comment=rungs_comment,
+                    rung_comment=rung_comment,
                     no=int(i),
                     local=local
                 )
-                #time.sleep(0.01)
+                # time.sleep(0.01)
             else:
-                print(f"НЕВЕРНЫЙ LOCAL: {row[ADDR]}, ЗАВЕРШЕНИЕ С ОШИБКОЙ\n")
+                print(f"НЕВЕРНЫЙ LOCAL: {address}, ЗАВЕРШЕНИЕ С ОШИБКОЙ\n")
                 raise Exception
 
-
         # Проверим что шаблоны ЗАПОЛНЕНЫ
-        #for controller in (ai_controller, di_controller, dout_controller):
-        #    printTags(controller)
-        #    printRungs(controller)
+        # for controller in (ai_controller, di_controller, dout_controller):
+        #    print_tags(controller)
+        #    print_rungs(controller)
 
         try:
-            ai_tree.write(f"{controllerversion}_{AI_OUTPUT}", encoding="UTF-8", xml_declaration=True)
-            di_tree.write(f"{controllerversion}_{DI_OUTPUT}", encoding="UTF-8", xml_declaration=True)
-            dout_tree.write(f"{controllerversion}_{DOut_OUTPUT}", encoding="UTF-8", xml_declaration=True)
-            print(f"Файлы {controllerversion}_*.L5X успешно записаны!")
+            ai_tree.write(f"{controller_version}_{AI_OUTPUT}", encoding="UTF-8", xml_declaration=True)
+            di_tree.write(f"{controller_version}_{DI_OUTPUT}", encoding="UTF-8", xml_declaration=True)
+            dout_tree.write(f"{controller_version}_{DOut_OUTPUT}", encoding="UTF-8", xml_declaration=True)
+            print(f"Файлы {controller_version}_*.L5X успешно записаны!")
         except Exception as ex:
             print(ex)
             print("При записи файлов произошла ошибка. Возможно файлы не сохранены")
 
-
-        print(f"УСПЕШНО ЗАВЕРШЕНО\nПропущено строк: {lines_skipped}")
+        print(
+            f"УСПЕШНО ЗАВЕРШЕНО\nПропущено строк: {lines_skipped}\nОбработано строк: {ai_lines + di_lines + dout_lines}")
         input("нажмите ENTER для выхода")
     except Exception as ex:
         print(f"Ошибка выполнения\n{ex}")

@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<RLLContent>
+    <Rung Number="0" Type="N">
+        <Comment>
+            <![CDATA[Обработка аналогового датчика: [*tag_name*] - [*rung_comment*]]]>
+        </Comment>
+        <Text>
+            <![CDATA[XIO([*tag_name*].In.Imit_Mode)MOV(Local:[*l_index1*]:[*l_char*].Ch[*l_index2*].Data,[*tag_name*].In.In_Aut);]]>
+        </Text>
+    </Rung>
+    <Rung Number="1" Type="N">
+        <Text>
+            <![CDATA[JSR(_AI,1,[*tag_name*],[*tag_name*]);]]>
+        </Text>
+    </Rung>
+</RLLContent>
