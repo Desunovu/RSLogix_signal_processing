@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<Tag Name="SAMPLE" TagType="Base" DataType="_DO" Constant="false" ExternalAccess="Read/Write">
+<Tag Name="[*tag_name]" TagType="Base" DataType="_DO" Constant="false" ExternalAccess="Read/Write">
 <Description>
-<![CDATA[Сигнализация отключено]]>
+<![CDATA[[*tag_description*]]]>
 </Description>
 <Data Format="Decorated">
 <Structure DataType="_DO">

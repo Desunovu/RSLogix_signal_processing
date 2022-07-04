@@ -12,27 +12,27 @@
 <DataValueMember Name="Use_Gen_Min_Warn" DataType="BOOL" Value="0"/>
 <DataValueMember Name="Use_Gen_Min_Alrm" DataType="BOOL" Value="0"/>
 <DataValueMember Name="Use_Filter_Signal" DataType="BOOL" Value="0"/>
-<DataValueMember Name="Use_Scaling" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Use_Scaling" DataType="BOOL" Value="1"/>
 <DataValueMember Name="Use_Percent_Ratio" DataType="BOOL" Value="0"/>
 </StructureMember>
 <StructureMember Name="In" DataType="_AI_In">
-<DataValueMember Name="In_Aut" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="In_Aut" DataType="REAL" Radix="Float" Value="-500.0"/>
 <DataValueMember Name="In_Imit" DataType="REAL" Radix="Float" Value="0.0"/>
 <DataValueMember Name="Imit_Mode" DataType="BOOL" Value="0"/>
 <DataValueMember Name="Enable" DataType="BOOL" Value="0"/>
 <DataValueMember Name="UControl" DataType="BOOL" Value="0"/>
 </StructureMember>
 <StructureMember Name="Out" DataType="_AI_Out">
-<DataValueMember Name="CV" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="CV" DataType="REAL" Radix="Float" Value="-4.5"/>
 <DataValueMember Name="Enable" DataType="BOOL" Value="0"/>
 <DataValueMember Name="Normal" DataType="BOOL" Value="0"/>
 <DataValueMember Name="Breakage" DataType="BOOL" Value="0"/>
 <DataValueMember Name="Beyond" DataType="BOOL" Value="0"/>
-<DataValueMember Name="PR_Value" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="PR_Value" DataType="REAL" Radix="Float" Value="-5.0"/>
 </StructureMember>
 <StructureMember Name="Int" DataType="_AI_Int">
-<DataValueMember Name="Tmp_In" DataType="REAL" Radix="Float" Value="0.0"/>
-<DataValueMember Name="Tmp_Delta" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="Tmp_In" DataType="REAL" Radix="Float" Value="-0.05"/>
+<DataValueMember Name="Tmp_Delta" DataType="REAL" Radix="Float" Value="10000.0"/>
 <DataValueMember Name="Tmp_Prev_In" DataType="REAL" Radix="Float" Value="0.0"/>
 <StructureMember Name="Tmp_Tim" DataType="TIMER">
 <DataValueMember Name="PRE" DataType="DINT" Radix="Decimal" Value="0"/>
@@ -44,21 +44,21 @@
 </StructureMember>
 <StructureMember Name="Par" DataType="_AI_Par">
 <DataValueMember Name="In_Min" DataType="REAL" Radix="Float" Value="0.0"/>
-<DataValueMember Name="In_Max" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="In_Max" DataType="REAL" Radix="Float" Value="10000.0"/>
 <DataValueMember Name="Out_Min" DataType="REAL" Radix="Float" Value="0.0"/>
-<DataValueMember Name="Out_Max" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="Out_Max" DataType="REAL" Radix="Float" Value="90.0"/>
 <DataValueMember Name="FT" DataType="INT" Radix="Decimal" Value="0"/>
 <DataValueMember Name="RangeType" DataType="SINT" Radix="Decimal" Value="0"/>
-<DataValueMember Name="MaxA" DataType="REAL" Radix="Float" Value="24.0"/>
-<DataValueMember Name="MaxW" DataType="REAL" Radix="Float" Value="22.0"/>
-<DataValueMember Name="MinW" DataType="REAL" Radix="Float" Value="18.0"/>
-<DataValueMember Name="MinA" DataType="REAL" Radix="Float" Value="16.0"/>
+<DataValueMember Name="MaxA" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="MaxW" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="MinW" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="MinA" DataType="REAL" Radix="Float" Value="0.0"/>
 </StructureMember>
 <StructureMember Name="HMI" DataType="_AI_HMI">
-<DataValueMember Name="StatI" DataType="INT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="StatI" DataType="INT" Radix="Decimal" Value="4"/>
 <DataValueMember Name="I_Imit_Mode" DataType="BOOL" Value="0"/>
-<DataValueMember Name="O_CV" DataType="REAL" Radix="Float" Value="0.0"/>
-<DataValueMember Name="O_PR_Value" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="O_CV" DataType="REAL" Radix="Float" Value="-4.5"/>
+<DataValueMember Name="O_PR_Value" DataType="REAL" Radix="Float" Value="-5.0"/>
 <StructureMember Name="Name" DataType="STRING">
 <DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
 <DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
@@ -76,7 +76,7 @@
 <StructureMember Name="Beyond" DataType="_AH_Alarm">
 <DataValueMember Name="In" DataType="BOOL" Value="0"/>
 <DataValueMember Name="Out" DataType="BOOL" Value="0"/>
-<DataValueMember Name="Enable" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Enable" DataType="BOOL" Value="1"/>
 <DataValueMember Name="Ack" DataType="BOOL" Value="0"/>
 <DataValueMember Name="Unack" DataType="BOOL" Value="0"/>
 <DataValueMember Name="Quit" DataType="BOOL" Value="0"/>
@@ -111,7 +111,7 @@
 <StructureMember Name="Breakage" DataType="_AH_Alarm">
 <DataValueMember Name="In" DataType="BOOL" Value="0"/>
 <DataValueMember Name="Out" DataType="BOOL" Value="0"/>
-<DataValueMember Name="Enable" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Enable" DataType="BOOL" Value="1"/>
 <DataValueMember Name="Ack" DataType="BOOL" Value="0"/>
 <DataValueMember Name="Unack" DataType="BOOL" Value="0"/>
 <DataValueMember Name="Quit" DataType="BOOL" Value="0"/>
@@ -146,7 +146,7 @@
 <StructureMember Name="Max_Alm" DataType="_AH_Alarm">
 <DataValueMember Name="In" DataType="BOOL" Value="0"/>
 <DataValueMember Name="Out" DataType="BOOL" Value="0"/>
-<DataValueMember Name="Enable" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Enable" DataType="BOOL" Value="1"/>
 <DataValueMember Name="Ack" DataType="BOOL" Value="0"/>
 <DataValueMember Name="Unack" DataType="BOOL" Value="0"/>
 <DataValueMember Name="Quit" DataType="BOOL" Value="0"/>
@@ -181,7 +181,7 @@
 <StructureMember Name="Max_Wrn" DataType="_AH_Alarm">
 <DataValueMember Name="In" DataType="BOOL" Value="0"/>
 <DataValueMember Name="Out" DataType="BOOL" Value="0"/>
-<DataValueMember Name="Enable" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Enable" DataType="BOOL" Value="1"/>
 <DataValueMember Name="Ack" DataType="BOOL" Value="0"/>
 <DataValueMember Name="Unack" DataType="BOOL" Value="0"/>
 <DataValueMember Name="Quit" DataType="BOOL" Value="0"/>
@@ -216,7 +216,7 @@
 <StructureMember Name="Min_Wrn" DataType="_AH_Alarm">
 <DataValueMember Name="In" DataType="BOOL" Value="0"/>
 <DataValueMember Name="Out" DataType="BOOL" Value="0"/>
-<DataValueMember Name="Enable" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Enable" DataType="BOOL" Value="1"/>
 <DataValueMember Name="Ack" DataType="BOOL" Value="0"/>
 <DataValueMember Name="Unack" DataType="BOOL" Value="0"/>
 <DataValueMember Name="Quit" DataType="BOOL" Value="0"/>
@@ -251,7 +251,7 @@
 <StructureMember Name="Min_Alm" DataType="_AH_Alarm">
 <DataValueMember Name="In" DataType="BOOL" Value="0"/>
 <DataValueMember Name="Out" DataType="BOOL" Value="0"/>
-<DataValueMember Name="Enable" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Enable" DataType="BOOL" Value="1"/>
 <DataValueMember Name="Ack" DataType="BOOL" Value="0"/>
 <DataValueMember Name="Unack" DataType="BOOL" Value="0"/>
 <DataValueMember Name="Quit" DataType="BOOL" Value="0"/>
@@ -284,38 +284,38 @@
 </StructureMember>
 </StructureMember>
 <StructureMember Name="UControl" DataType="_AH_Alarm">
-<DataValueMember Name="In" DataType="BOOL" Value="0"/>
-<DataValueMember Name="Out" DataType="BOOL" Value="0"/>
-<DataValueMember Name="Enable" DataType="BOOL" Value="0"/>
-<DataValueMember Name="Ack" DataType="BOOL" Value="0"/>
+<DataValueMember Name="In" DataType="BOOL" Value="1"/>
+<DataValueMember Name="Out" DataType="BOOL" Value="1"/>
+<DataValueMember Name="Enable" DataType="BOOL" Value="1"/>
+<DataValueMember Name="Ack" DataType="BOOL" Value="1"/>
 <DataValueMember Name="Unack" DataType="BOOL" Value="0"/>
 <DataValueMember Name="Quit" DataType="BOOL" Value="0"/>
 <StructureMember Name="Timer" DataType="TIMER">
 <DataValueMember Name="PRE" DataType="DINT" Radix="Decimal" Value="0"/>
-<DataValueMember Name="ACC" DataType="DINT" Radix="Decimal" Value="0"/>
-<DataValueMember Name="EN" DataType="BOOL" Value="0"/>
+<DataValueMember Name="ACC" DataType="DINT" Radix="Decimal" Value="39"/>
+<DataValueMember Name="EN" DataType="BOOL" Value="1"/>
 <DataValueMember Name="TT" DataType="BOOL" Value="0"/>
-<DataValueMember Name="DN" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DN" DataType="BOOL" Value="1"/>
 </StructureMember>
-<DataValueMember Name="OutOSR" DataType="BOOL" Value="0"/>
-<DataValueMember Name="AckOSR" DataType="BOOL" Value="0"/>
+<DataValueMember Name="OutOSR" DataType="BOOL" Value="1"/>
+<DataValueMember Name="AckOSR" DataType="BOOL" Value="1"/>
 <StructureMember Name="OutDT" DataType="_DT_DateTime">
-<DataValueMember Name="Year" DataType="DINT" Radix="Decimal" Value="0"/>
-<DataValueMember Name="Month" DataType="DINT" Radix="Decimal" Value="0"/>
-<DataValueMember Name="Day" DataType="DINT" Radix="Decimal" Value="0"/>
-<DataValueMember Name="Hour" DataType="DINT" Radix="Decimal" Value="0"/>
-<DataValueMember Name="Min" DataType="DINT" Radix="Decimal" Value="0"/>
-<DataValueMember Name="Sec" DataType="DINT" Radix="Decimal" Value="0"/>
-<DataValueMember Name="Msec" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Year" DataType="DINT" Radix="Decimal" Value="2100"/>
+<DataValueMember Name="Month" DataType="DINT" Radix="Decimal" Value="8"/>
+<DataValueMember Name="Day" DataType="DINT" Radix="Decimal" Value="20"/>
+<DataValueMember Name="Hour" DataType="DINT" Radix="Decimal" Value="19"/>
+<DataValueMember Name="Min" DataType="DINT" Radix="Decimal" Value="12"/>
+<DataValueMember Name="Sec" DataType="DINT" Radix="Decimal" Value="59"/>
+<DataValueMember Name="Msec" DataType="DINT" Radix="Decimal" Value="511"/>
 </StructureMember>
 <StructureMember Name="AckDT" DataType="_DT_DateTime">
-<DataValueMember Name="Year" DataType="DINT" Radix="Decimal" Value="0"/>
-<DataValueMember Name="Month" DataType="DINT" Radix="Decimal" Value="0"/>
-<DataValueMember Name="Day" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Year" DataType="DINT" Radix="Decimal" Value="586391"/>
+<DataValueMember Name="Month" DataType="DINT" Radix="Decimal" Value="10"/>
+<DataValueMember Name="Day" DataType="DINT" Radix="Decimal" Value="26"/>
 <DataValueMember Name="Hour" DataType="DINT" Radix="Decimal" Value="0"/>
-<DataValueMember Name="Min" DataType="DINT" Radix="Decimal" Value="0"/>
-<DataValueMember Name="Sec" DataType="DINT" Radix="Decimal" Value="0"/>
-<DataValueMember Name="Msec" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Min" DataType="DINT" Radix="Decimal" Value="46"/>
+<DataValueMember Name="Sec" DataType="DINT" Radix="Decimal" Value="36"/>
+<DataValueMember Name="Msec" DataType="DINT" Radix="Decimal" Value="982"/>
 </StructureMember>
 </StructureMember>
 <StructureMember Name="HMI" DataType="_AI_Alm_HMI">
@@ -325,9 +325,10 @@
 <DataValueMember Name="Max_Wrn" DataType="BOOL" Value="0"/>
 <DataValueMember Name="Min_Wrn" DataType="BOOL" Value="0"/>
 <DataValueMember Name="Min_Alm" DataType="BOOL" Value="0"/>
-<DataValueMember Name="UControl" DataType="BOOL" Value="0"/>
+<DataValueMember Name="UControl" DataType="BOOL" Value="1"/>
 </StructureMember>
 </StructureMember>
 </Structure>
 </Data>
 </Tag>
+

@@ -1,13 +1,12 @@
 ﻿import re
 import time
-import xml.etree.ElementTree  # только для упрощения работы в IDE
-import lxml.etree as ET
+import lxml.etree as et
 import pylightxl as xl
 import easygui
 
 from settings import *
 
-parser = ET.XMLParser(strip_cdata=False)
+parser = et.XMLParser(remove_blank_text=False, strip_cdata=False)
 
 lines_skipped = 0
 ai_lines = 0
@@ -40,7 +39,7 @@ def replace_all_in_cdata(text_string: str, tag_name: str, rung_comment: str, tag
     return string.strip()
 
 
-def print_tags(controller: xml.etree.ElementTree.Element):
+def print_tags(controller: et.ElementBase):
     tags = controller.find("Tags")
     if len(tags.findall("Tag")) == 0:
         print(f"{controller.attrib} - NO TAGS FOUND")
@@ -48,7 +47,7 @@ def print_tags(controller: xml.etree.ElementTree.Element):
         print(tag.attrib)
 
 
-def print_rungs(controller: xml.etree.ElementTree.Element):
+def print_rungs(controller: et.ElementBase):
     rllcontent = controller.find("Programs").find("Program").find("Routines").findall("Routine")[1].find("RLLContent")
     if len(rllcontent.findall("Rung")) == 0:
         print(f"{controller.attrib} - NO RUNGS FOUND")
@@ -57,31 +56,31 @@ def print_rungs(controller: xml.etree.ElementTree.Element):
 
 
 def create_tag(tag_file, tag_name, tag_description, no):
-    new_tag = ET.parse(tag_file, parser=parser).getroot()
+    new_tag = et.parse(tag_file, parser=parser).getroot()
     new_tag.set("Name", tag_name)
-    new_tag.find("Description").text = ET.CDATA(tag_description)
+    new_tag.find("Description").text = et.CDATA(tag_description)
     return new_tag
 
 
 def create_rungs(rungs_file: str, tag_name: str, rung_comment: str, no: int, local: LocalData):
-    new_rungs = ET.parse(rungs_file, parser=parser).getroot().findall("Rung")
+    new_rungs = et.parse(rungs_file, parser=parser).getroot().findall("Rung")
     for i, rung in enumerate(new_rungs):
         rung.set("Number", f"{3 * no + i}")
 
         try:
             new_comment = replace_all_in_cdata(text_string=rung.find("Comment").text, tag_name=tag_name,
                                                rung_comment=rung_comment, tag_description="???", local=local)
-            rung.find("Comment").text = ET.CDATA(new_comment)
+            rung.find("Comment").text = et.CDATA(new_comment)
         except:
             pass
         new_text = replace_all_in_cdata(text_string=rung.find("Text").text, tag_name=tag_name,
                                         rung_comment=rung_comment, tag_description="???", local=local)
-        rung.find("Text").text = ET.CDATA(new_text)
+        rung.find("Text").text = et.CDATA(new_text)
 
     return new_rungs
 
 
-def add_tag(controller: xml.etree.ElementTree.Element, ttype="", tag_name="", tag_description="", no=0):
+def add_tag(controller: et.ElementBase, ttype="", tag_name="", tag_description="", no=0):
     tags = controller.find("Tags")
 
     tag_file = None
@@ -97,7 +96,7 @@ def add_tag(controller: xml.etree.ElementTree.Element, ttype="", tag_name="", ta
     print(f"{no}) Добавлен тег {row[ADDR]} {tag_name}")
 
 
-def add_rungs(controller: xml.etree.ElementTree.Element, routine: str, tag_name: str, rung_comment: str, no: int,
+def add_rungs(controller: et.ElementBase, routine: str, tag_name: str, rung_comment: str, no: int,
               local: LocalData):
     rllcontent = controller.find("Programs").find("Program").find("Routines").findall("Routine")[1].find("RLLContent")
 
@@ -128,17 +127,17 @@ if __name__ == "__main__":
         data = get_excel_data(file)
 
         # Структура файла AI.L5X
-        ai_tree = ET.parse(source=AI_EMPTY_FILE, parser=parser)
+        ai_tree: et = et.parse(source=AI_EMPTY_FILE, parser=parser)
         ai_root = ai_tree.getroot()
         ai_controller = ai_root[0]
 
         # Структура файла DI.L5X
-        di_tree = ET.parse(source=DI_EMPTY_FILE, parser=parser)
+        di_tree: et = et.parse(source=DI_EMPTY_FILE, parser=parser)
         di_root = di_tree.getroot()
         di_controller = di_root[0]
 
         # Структура файла DOut.L5X
-        dout_tree = ET.parse(source=DOUT_EMPTY_FILE, parser=parser)
+        dout_tree: et = et.parse(source=DOUT_EMPTY_FILE, parser=parser)
         dout_root = dout_tree.getroot()
         dout_controller = dout_root[0]
 
@@ -172,10 +171,10 @@ if __name__ == "__main__":
                     lines_skipped += 1
                     continue
 
-                tag_description = f"{row[DESCA]} {row[DESCB]} {row[DESCC]} {row[DESCD]} {row[DESCE]}"
+                tag_description = f"{row[DESCA]} {row[DESCB]} {row[DESCC]} {row[DESCD]} {row[DESCE]}".strip()
 
                 try:
-                    rung_comment = row[ROUT_DESC]
+                    rung_comment = str(row[ROUT_DESC]).strip()
                 except:
                     rung_comment = ""
 
@@ -229,7 +228,7 @@ if __name__ == "__main__":
         #    print_rungs(controller)
 
         try:
-            ai_tree.write(f"{controller_version}_{AI_OUTPUT}", encoding="UTF-8", xml_declaration=True)
+            ai_tree.write(f"{controller_version}_{AI_OUTPUT}", encoding="UTF-8", xml_declaration=True, )
             di_tree.write(f"{controller_version}_{DI_OUTPUT}", encoding="UTF-8", xml_declaration=True)
             dout_tree.write(f"{controller_version}_{DOut_OUTPUT}", encoding="UTF-8", xml_declaration=True)
             print(f"Файлы {controller_version}_*.L5X успешно записаны!")

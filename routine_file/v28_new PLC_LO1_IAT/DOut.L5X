@@ -1,400 +1,400 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="28.02" TargetName="DOut" TargetType="Routine"
-                    TargetSubType="RLL" ContainsContext="true" Owner="Microsoft, Microsoft"
-                    ExportDate="Wed Jun 15 13:42:23 2022"
-                    ExportOptions="References NoRawData L5KData DecoratedData Context Dependencies ForceProtectedEncoding AllProjDocTrans">
-    <Controller Use="Context" Name="PLC_LO1_IAT">
-        <DataTypes Use="Context">
-            <DataType Name="_AH_Alarm" Family="NoFamily" Class="User">
-                <Description>
-                    <![CDATA[Описание аварии]]>
-                </Description>
-                <Members>
-                    <Member Name="ZZZZZZZZZZ_AH_Alarm0" DataType="SINT" Dimension="0" Radix="Decimal" Hidden="true"
-                            ExternalAccess="Read/Write"/>
-                    <Member Name="In" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"
-                            Target="ZZZZZZZZZZ_AH_Alarm0" BitNumber="0" ExternalAccess="Read/Write">
-                        <Description>
-                            <![CDATA[- Условие появления]]>
-                        </Description>
-                    </Member>
-                    <Member Name="Out" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"
-                            Target="ZZZZZZZZZZ_AH_Alarm0" BitNumber="1" ExternalAccess="Read/Write">
-                        <Description>
-                            <![CDATA[- Есть авария]]>
-                        </Description>
-                    </Member>
-                    <Member Name="Enable" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"
-                            Target="ZZZZZZZZZZ_AH_Alarm0" BitNumber="2" ExternalAccess="Read/Write">
-                        <Description>
-                            <![CDATA[- Разрешена]]>
-                        </Description>
-                    </Member>
-                    <Member Name="Ack" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"
-                            Target="ZZZZZZZZZZ_AH_Alarm0" BitNumber="3" ExternalAccess="Read/Write">
-                        <Description>
-                            <![CDATA[- Подтверждена]]>
-                        </Description>
-                    </Member>
-                    <Member Name="Unack" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"
-                            Target="ZZZZZZZZZZ_AH_Alarm0" BitNumber="4" ExternalAccess="Read/Write">
-                        <Description>
-                            <![CDATA[- Не подтверждена]]>
-                        </Description>
-                    </Member>
-                    <Member Name="Quit" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"
-                            Target="ZZZZZZZZZZ_AH_Alarm0" BitNumber="5" ExternalAccess="Read/Write">
-                        <Description>
-                            <![CDATA[- Квитирование]]>
-                        </Description>
-                    </Member>
-                    <Member Name="Timer" DataType="TIMER" Dimension="0" Radix="NullType" Hidden="false"
-                            ExternalAccess="Read/Write">
-                        <Description>
-                            <![CDATA[- Таймер фиксации]]>
-                        </Description>
-                    </Member>
-                    <Member Name="ZZZZZZZZZZ_AH_Alarm8" DataType="SINT" Dimension="0" Radix="Decimal" Hidden="true"
-                            ExternalAccess="Read/Write"/>
-                    <Member Name="OutOSR" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"
-                            Target="ZZZZZZZZZZ_AH_Alarm8" BitNumber="0" ExternalAccess="Read/Write">
-                        <Description>
-                            <![CDATA[- Фронт наличия аварии]]>
-                        </Description>
-                    </Member>
-                    <Member Name="AckOSR" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"
-                            Target="ZZZZZZZZZZ_AH_Alarm8" BitNumber="1" ExternalAccess="Read/Write">
-                        <Description>
-                            <![CDATA[- Фронт подтверждения]]>
-                        </Description>
-                    </Member>
-                    <Member Name="OutDT" DataType="_DT_DateTime" Dimension="0" Radix="NullType" Hidden="false"
-                            ExternalAccess="Read/Write">
-                        <Description>
-                            <![CDATA[- Дата и время появления аварии]]>
-                        </Description>
-                    </Member>
-                    <Member Name="AckDT" DataType="_DT_DateTime" Dimension="0" Radix="NullType" Hidden="false"
-                            ExternalAccess="Read/Write">
-                        <Description>
-                            <![CDATA[- Дата и время подтверждения аварии]]>
-                        </Description>
-                    </Member>
-                </Members>
-                <Dependencies>
-                    <Dependency Type="DataType" Name="_DT_DateTime"/>
-                    <Dependency Type="DataType" Name="_DT_DateTime"/>
-                </Dependencies>
-            </DataType>
-            <DataType Name="_DO" Family="NoFamily" Class="User">
-                <Description>
-                    <![CDATA[Дискретный выход]]>
-                </Description>
-                <Members>
-                    <Member Name="Cfg" DataType="_DO_Cfg" Dimension="0" Radix="NullType" Hidden="false"
-                            ExternalAccess="Read/Write">
-                        <Description>
-                            <![CDATA[- Конфигурация]]>
-                        </Description>
-                    </Member>
-                    <Member Name="In" DataType="_DO_In" Dimension="0" Radix="NullType" Hidden="false"
-                            ExternalAccess="Read/Write">
-                        <Description>
-                            <![CDATA[- Входные]]>
-                        </Description>
-                    </Member>
-                    <Member Name="Out" DataType="_DO_Out" Dimension="0" Radix="NullType" Hidden="false"
-                            ExternalAccess="Read/Write">
-                        <Description>
-                            <![CDATA[- Выходные]]>
-                        </Description>
-                    </Member>
-                    <Member Name="Int" DataType="_DO_Int" Dimension="0" Radix="NullType" Hidden="false"
-                            ExternalAccess="Read/Write">
-                        <Description>
-                            <![CDATA[- Внутренние]]>
-                        </Description>
-                    </Member>
-                    <Member Name="HMI" DataType="_DO_HMI" Dimension="0" Radix="NullType" Hidden="false"
-                            ExternalAccess="Read/Write">
-                        <Description>
-                            <![CDATA[- Интерфейс оператора]]>
-                        </Description>
-                    </Member>
-                    <Member Name="Alm" DataType="_DO_Alm" Dimension="0" Radix="NullType" Hidden="false"
-                            ExternalAccess="Read/Write">
-                        <Description>
-                            <![CDATA[- Аварии]]>
-                        </Description>
-                    </Member>
-                </Members>
-                <Dependencies>
-                    <Dependency Type="DataType" Name="_DO_Cfg"/>
-                    <Dependency Type="DataType" Name="_DO_In"/>
-                    <Dependency Type="DataType" Name="_DO_Out"/>
-                    <Dependency Type="DataType" Name="_DO_Int"/>
-                    <Dependency Type="DataType" Name="_DO_HMI"/>
-                    <Dependency Type="DataType" Name="_DO_Alm"/>
-                </Dependencies>
-            </DataType>
-            <DataType Name="_DO_Alm" Family="NoFamily" Class="User">
-                <Description>
-                    <![CDATA[Аварии]]>
-                </Description>
-                <Members>
-                    <Member Name="Fault" DataType="_AH_Alarm" Dimension="0" Radix="NullType" Hidden="false"
-                            ExternalAccess="Read/Write">
-                        <Description>
-                            <![CDATA[- Ошибка модуля]]>
-                        </Description>
-                    </Member>
-                    <Member Name="HMI" DataType="_DO_Alm_HMI" Dimension="0" Radix="NullType" Hidden="false"
-                            ExternalAccess="Read/Write">
-                        <Description>
-                            <![CDATA[- Аварии для HMI]]>
-                        </Description>
-                    </Member>
-                </Members>
-                <Dependencies>
-                    <Dependency Type="DataType" Name="_AH_Alarm"/>
-                    <Dependency Type="DataType" Name="_DO_Alm_HMI"/>
-                </Dependencies>
-            </DataType>
-            <DataType Name="_DO_Alm_HMI" Family="NoFamily" Class="User">
-                <Description>
-                    <![CDATA[Аварии для HMI]]>
-                </Description>
-                <Members>
-                    <Member Name="ZZZZZZZZZZ_DO_Alm_HM0" DataType="SINT" Dimension="0" Radix="Decimal" Hidden="true"
-                            ExternalAccess="Read/Write"/>
-                    <Member Name="Fault" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"
-                            Target="ZZZZZZZZZZ_DO_Alm_HM0" BitNumber="0" ExternalAccess="Read/Write">
-                        <Description>
-                            <![CDATA[- Ошибка модуля]]>
-                        </Description>
-                    </Member>
-                </Members>
-            </DataType>
-            <DataType Name="_DO_Cfg" Family="NoFamily" Class="User">
-                <Description>
-                    <![CDATA[Конфигурация]]>
-                </Description>
-                <Members>
-                    <Member Name="ZZZZZZZZZZ_DO_Cfg0" DataType="SINT" Dimension="0" Radix="Decimal" Hidden="true"
-                            ExternalAccess="Read/Write"/>
-                    <Member Name="Invert" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"
-                            Target="ZZZZZZZZZZ_DO_Cfg0" BitNumber="0" ExternalAccess="Read/Write">
-                        <Description>
-                            <![CDATA[- Инвертировать входной сигнал]]>
-                        </Description>
-                    </Member>
-                    <Member Name="Use_Fault" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"
-                            Target="ZZZZZZZZZZ_DO_Cfg0" BitNumber="1" ExternalAccess="Read/Write">
-                        <Description>
-                            <![CDATA[- Использовать контроль ошибки модуля]]>
-                        </Description>
-                    </Member>
-                </Members>
-            </DataType>
-            <DataType Name="_DO_HMI" Family="NoFamily" Class="User">
-                <Description>
-                    <![CDATA[Интерфейс оператора]]>
-                </Description>
-                <Members>
-                    <Member Name="StatI" DataType="INT" Dimension="0" Radix="Decimal" Hidden="false"
-                            ExternalAccess="Read/Write">
-                        <Description>
-                            <![CDATA[- Состояние дискретного сигнала]]>
-                        </Description>
-                    </Member>
-                    <Member Name="ZZZZZZZZZZ_DO_HMI1" DataType="SINT" Dimension="0" Radix="Decimal" Hidden="true"
-                            ExternalAccess="Read/Write"/>
-                    <Member Name="C_Invert" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"
-                            Target="ZZZZZZZZZZ_DO_HMI1" BitNumber="0" ExternalAccess="Read/Write">
-                        <Description>
-                            <![CDATA[- Используется инвертированный выходной сигнал]]>
-                        </Description>
-                    </Member>
-                    <Member Name="C_Use_Fault" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"
-                            Target="ZZZZZZZZZZ_DO_HMI1" BitNumber="1" ExternalAccess="Read/Write">
-                        <Description>
-                            <![CDATA[- Используется контроль ошибки модуля]]>
-                        </Description>
-                    </Member>
-                    <Member Name="I_In_Aut" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"
-                            Target="ZZZZZZZZZZ_DO_HMI1" BitNumber="2" ExternalAccess="Read/Write">
-                        <Description>
-                            <![CDATA[- Вход - с программы]]>
-                        </Description>
-                    </Member>
-                    <Member Name="I_In_Man" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"
-                            Target="ZZZZZZZZZZ_DO_HMI1" BitNumber="3" ExternalAccess="Read/Write">
-                        <Description>
-                            <![CDATA[- Вход - ручное]]>
-                        </Description>
-                    </Member>
-                    <Member Name="I_Man_Mode" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"
-                            Target="ZZZZZZZZZZ_DO_HMI1" BitNumber="4" ExternalAccess="Read/Write">
-                        <Description>
-                            <![CDATA[- Режим ручной]]>
-                        </Description>
-                    </Member>
-                    <Member Name="I_Fault" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"
-                            Target="ZZZZZZZZZZ_DO_HMI1" BitNumber="5" ExternalAccess="Read/Write">
-                        <Description>
-                            <![CDATA[- Вход контроля ошибки модуля]]>
-                        </Description>
-                    </Member>
-                    <Member Name="O_Out" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"
-                            Target="ZZZZZZZZZZ_DO_HMI1" BitNumber="6" ExternalAccess="Read/Write">
-                        <Description>
-                            <![CDATA[- Обработанный дискретный выходной сигнал]]>
-                        </Description>
-                    </Member>
-                    <Member Name="Name" DataType="STRING" Dimension="0" Radix="NullType" Hidden="false"
-                            ExternalAccess="Read/Write">
-                        <Description>
-                            <![CDATA[- Описание сигнала]]>
-                        </Description>
-                    </Member>
-                    <Member Name="Number" DataType="STRING" Dimension="0" Radix="NullType" Hidden="false"
-                            ExternalAccess="Read/Write">
-                        <Description>
-                            <![CDATA[- Номер сигнала]]>
-                        </Description>
-                    </Member>
-                </Members>
-            </DataType>
-            <DataType Name="_DO_In" Family="NoFamily" Class="User">
-                <Description>
-                    <![CDATA[Входные]]>
-                </Description>
-                <Members>
-                    <Member Name="ZZZZZZZZZZ_DO_In0" DataType="SINT" Dimension="0" Radix="Decimal" Hidden="true"
-                            ExternalAccess="Read/Write"/>
-                    <Member Name="In_Aut" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"
-                            Target="ZZZZZZZZZZ_DO_In0" BitNumber="0" ExternalAccess="Read/Write">
-                        <Description>
-                            <![CDATA[- Вход - с программы]]>
-                        </Description>
-                    </Member>
-                    <Member Name="In_Man" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"
-                            Target="ZZZZZZZZZZ_DO_In0" BitNumber="1" ExternalAccess="Read/Write">
-                        <Description>
-                            <![CDATA[- Вход - ручное]]>
-                        </Description>
-                    </Member>
-                    <Member Name="Man_Mode" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"
-                            Target="ZZZZZZZZZZ_DO_In0" BitNumber="2" ExternalAccess="Read/Write">
-                        <Description>
-                            <![CDATA[- Режим ручной]]>
-                        </Description>
-                    </Member>
-                    <Member Name="Fault" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"
-                            Target="ZZZZZZZZZZ_DO_In0" BitNumber="3" ExternalAccess="Read/Write">
-                        <Description>
-                            <![CDATA[- Вход контроля ошибки модуля]]>
-                        </Description>
-                    </Member>
-                </Members>
-            </DataType>
-            <DataType Name="_DO_Int" Family="NoFamily" Class="User">
-                <Description>
-                    <![CDATA[Внутренние]]>
-                </Description>
-                <Members>
-                    <Member Name="ZZZZZZZZZZ_DO_Int0" DataType="SINT" Dimension="0" Radix="Decimal" Hidden="true"
-                            ExternalAccess="Read/Write"/>
-                    <Member Name="Tmp_in" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"
-                            Target="ZZZZZZZZZZ_DO_Int0" BitNumber="0" ExternalAccess="Read/Write"/>
-                </Members>
-            </DataType>
-            <DataType Name="_DO_Out" Family="NoFamily" Class="User">
-                <Description>
-                    <![CDATA[Выходные]]>
-                </Description>
-                <Members>
-                    <Member Name="ZZZZZZZZZZ_DO_Out0" DataType="SINT" Dimension="0" Radix="Decimal" Hidden="true"
-                            ExternalAccess="Read/Write"/>
-                    <Member Name="Out" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"
-                            Target="ZZZZZZZZZZ_DO_Out0" BitNumber="0" ExternalAccess="Read/Write">
-                        <Description>
-                            <![CDATA[- Обработанное значение дискретного выхода]]>
-                        </Description>
-                    </Member>
-                </Members>
-            </DataType>
-            <DataType Name="_DT_DateTime" Family="NoFamily" Class="User">
-                <Description>
-                    <![CDATA[Дата\время]]>
-                </Description>
-                <Members>
-                    <Member Name="Year" DataType="DINT" Dimension="0" Radix="Decimal" Hidden="false"
-                            ExternalAccess="Read/Write">
-                        <Description>
-                            <![CDATA[- Год]]>
-                        </Description>
-                    </Member>
-                    <Member Name="Month" DataType="DINT" Dimension="0" Radix="Decimal" Hidden="false"
-                            ExternalAccess="Read/Write">
-                        <Description>
-                            <![CDATA[- Месяц]]>
-                        </Description>
-                    </Member>
-                    <Member Name="Day" DataType="DINT" Dimension="0" Radix="Decimal" Hidden="false"
-                            ExternalAccess="Read/Write">
-                        <Description>
-                            <![CDATA[- День]]>
-                        </Description>
-                    </Member>
-                    <Member Name="Hour" DataType="DINT" Dimension="0" Radix="Decimal" Hidden="false"
-                            ExternalAccess="Read/Write">
-                        <Description>
-                            <![CDATA[- Час]]>
-                        </Description>
-                    </Member>
-                    <Member Name="Min" DataType="DINT" Dimension="0" Radix="Decimal" Hidden="false"
-                            ExternalAccess="Read/Write">
-                        <Description>
-                            <![CDATA[- Мин]]>
-                        </Description>
-                    </Member>
-                    <Member Name="Sec" DataType="DINT" Dimension="0" Radix="Decimal" Hidden="false"
-                            ExternalAccess="Read/Write">
-                        <Description>
-                            <![CDATA[- Сек]]>
-                        </Description>
-                    </Member>
-                    <Member Name="Msec" DataType="DINT" Dimension="0" Radix="Decimal" Hidden="false"
-                            ExternalAccess="Read/Write">
-                        <Description>
-                            <![CDATA[- Мсек]]>
-                        </Description>
-                    </Member>
-                </Members>
-            </DataType>
-        </DataTypes>
-        <Modules Use="Context">
-            <Module Use="Reference">
-            </Module>
-            <Module Use="Reference">
-            </Module>
-            <Module Use="Reference" Name="Local">
-            </Module>
-        </Modules>
-        <Tags Use="Context">
-        </Tags>
-        <Programs Use="Context">
-            <Program Use="Context" Name="MainProgram">
-                <Routines Use="Context">
-                    <Routine Use="Reference" Name="_DO">
-                    </Routine>
-                    <Routine Use="Target" Name="DOut" Type="RLL">
-                        <RLLContent>
-                        </RLLContent>
-                    </Routine>
-                </Routines>
-            </Program>
-        </Programs>
-    </Controller>
+TargetSubType="RLL" ContainsContext="true" Owner="Microsoft, Microsoft"
+ExportDate="Wed Jun 15 13:42:23 2022"
+ExportOptions="References NoRawData L5KData DecoratedData Context Dependencies ForceProtectedEncoding AllProjDocTrans">
+<Controller Use="Context" Name="PLC_LO1_IAT">
+<DataTypes Use="Context">
+<DataType Name="_AH_Alarm" Family="NoFamily" Class="User">
+<Description>
+<![CDATA[Описание аварии]]>
+</Description>
+<Members>
+<Member Name="ZZZZZZZZZZ_AH_Alarm0" DataType="SINT" Dimension="0" Radix="Decimal" Hidden="true"
+ExternalAccess="Read/Write"/>
+<Member Name="In" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"
+Target="ZZZZZZZZZZ_AH_Alarm0" BitNumber="0" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[- Условие появления]]>
+</Description>
+</Member>
+<Member Name="Out" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"
+Target="ZZZZZZZZZZ_AH_Alarm0" BitNumber="1" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[- Есть авария]]>
+</Description>
+</Member>
+<Member Name="Enable" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"
+Target="ZZZZZZZZZZ_AH_Alarm0" BitNumber="2" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[- Разрешена]]>
+</Description>
+</Member>
+<Member Name="Ack" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"
+Target="ZZZZZZZZZZ_AH_Alarm0" BitNumber="3" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[- Подтверждена]]>
+</Description>
+</Member>
+<Member Name="Unack" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"
+Target="ZZZZZZZZZZ_AH_Alarm0" BitNumber="4" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[- Не подтверждена]]>
+</Description>
+</Member>
+<Member Name="Quit" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"
+Target="ZZZZZZZZZZ_AH_Alarm0" BitNumber="5" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[- Квитирование]]>
+</Description>
+</Member>
+<Member Name="Timer" DataType="TIMER" Dimension="0" Radix="NullType" Hidden="false"
+ExternalAccess="Read/Write">
+<Description>
+<![CDATA[- Таймер фиксации]]>
+</Description>
+</Member>
+<Member Name="ZZZZZZZZZZ_AH_Alarm8" DataType="SINT" Dimension="0" Radix="Decimal" Hidden="true"
+ExternalAccess="Read/Write"/>
+<Member Name="OutOSR" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"
+Target="ZZZZZZZZZZ_AH_Alarm8" BitNumber="0" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[- Фронт наличия аварии]]>
+</Description>
+</Member>
+<Member Name="AckOSR" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"
+Target="ZZZZZZZZZZ_AH_Alarm8" BitNumber="1" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[- Фронт подтверждения]]>
+</Description>
+</Member>
+<Member Name="OutDT" DataType="_DT_DateTime" Dimension="0" Radix="NullType" Hidden="false"
+ExternalAccess="Read/Write">
+<Description>
+<![CDATA[- Дата и время появления аварии]]>
+</Description>
+</Member>
+<Member Name="AckDT" DataType="_DT_DateTime" Dimension="0" Radix="NullType" Hidden="false"
+ExternalAccess="Read/Write">
+<Description>
+<![CDATA[- Дата и время подтверждения аварии]]>
+</Description>
+</Member>
+</Members>
+<Dependencies>
+<Dependency Type="DataType" Name="_DT_DateTime"/>
+<Dependency Type="DataType" Name="_DT_DateTime"/>
+</Dependencies>
+</DataType>
+<DataType Name="_DO" Family="NoFamily" Class="User">
+<Description>
+<![CDATA[Дискретный выход]]>
+</Description>
+<Members>
+<Member Name="Cfg" DataType="_DO_Cfg" Dimension="0" Radix="NullType" Hidden="false"
+ExternalAccess="Read/Write">
+<Description>
+<![CDATA[- Конфигурация]]>
+</Description>
+</Member>
+<Member Name="In" DataType="_DO_In" Dimension="0" Radix="NullType" Hidden="false"
+ExternalAccess="Read/Write">
+<Description>
+<![CDATA[- Входные]]>
+</Description>
+</Member>
+<Member Name="Out" DataType="_DO_Out" Dimension="0" Radix="NullType" Hidden="false"
+ExternalAccess="Read/Write">
+<Description>
+<![CDATA[- Выходные]]>
+</Description>
+</Member>
+<Member Name="Int" DataType="_DO_Int" Dimension="0" Radix="NullType" Hidden="false"
+ExternalAccess="Read/Write">
+<Description>
+<![CDATA[- Внутренние]]>
+</Description>
+</Member>
+<Member Name="HMI" DataType="_DO_HMI" Dimension="0" Radix="NullType" Hidden="false"
+ExternalAccess="Read/Write">
+<Description>
+<![CDATA[- Интерфейс оператора]]>
+</Description>
+</Member>
+<Member Name="Alm" DataType="_DO_Alm" Dimension="0" Radix="NullType" Hidden="false"
+ExternalAccess="Read/Write">
+<Description>
+<![CDATA[- Аварии]]>
+</Description>
+</Member>
+</Members>
+<Dependencies>
+<Dependency Type="DataType" Name="_DO_Cfg"/>
+<Dependency Type="DataType" Name="_DO_In"/>
+<Dependency Type="DataType" Name="_DO_Out"/>
+<Dependency Type="DataType" Name="_DO_Int"/>
+<Dependency Type="DataType" Name="_DO_HMI"/>
+<Dependency Type="DataType" Name="_DO_Alm"/>
+</Dependencies>
+</DataType>
+<DataType Name="_DO_Alm" Family="NoFamily" Class="User">
+<Description>
+<![CDATA[Аварии]]>
+</Description>
+<Members>
+<Member Name="Fault" DataType="_AH_Alarm" Dimension="0" Radix="NullType" Hidden="false"
+ExternalAccess="Read/Write">
+<Description>
+<![CDATA[- Ошибка модуля]]>
+</Description>
+</Member>
+<Member Name="HMI" DataType="_DO_Alm_HMI" Dimension="0" Radix="NullType" Hidden="false"
+ExternalAccess="Read/Write">
+<Description>
+<![CDATA[- Аварии для HMI]]>
+</Description>
+</Member>
+</Members>
+<Dependencies>
+<Dependency Type="DataType" Name="_AH_Alarm"/>
+<Dependency Type="DataType" Name="_DO_Alm_HMI"/>
+</Dependencies>
+</DataType>
+<DataType Name="_DO_Alm_HMI" Family="NoFamily" Class="User">
+<Description>
+<![CDATA[Аварии для HMI]]>
+</Description>
+<Members>
+<Member Name="ZZZZZZZZZZ_DO_Alm_HM0" DataType="SINT" Dimension="0" Radix="Decimal" Hidden="true"
+ExternalAccess="Read/Write"/>
+<Member Name="Fault" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"
+Target="ZZZZZZZZZZ_DO_Alm_HM0" BitNumber="0" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[- Ошибка модуля]]>
+</Description>
+</Member>
+</Members>
+</DataType>
+<DataType Name="_DO_Cfg" Family="NoFamily" Class="User">
+<Description>
+<![CDATA[Конфигурация]]>
+</Description>
+<Members>
+<Member Name="ZZZZZZZZZZ_DO_Cfg0" DataType="SINT" Dimension="0" Radix="Decimal" Hidden="true"
+ExternalAccess="Read/Write"/>
+<Member Name="Invert" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"
+Target="ZZZZZZZZZZ_DO_Cfg0" BitNumber="0" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[- Инвертировать входной сигнал]]>
+</Description>
+</Member>
+<Member Name="Use_Fault" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"
+Target="ZZZZZZZZZZ_DO_Cfg0" BitNumber="1" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[- Использовать контроль ошибки модуля]]>
+</Description>
+</Member>
+</Members>
+</DataType>
+<DataType Name="_DO_HMI" Family="NoFamily" Class="User">
+<Description>
+<![CDATA[Интерфейс оператора]]>
+</Description>
+<Members>
+<Member Name="StatI" DataType="INT" Dimension="0" Radix="Decimal" Hidden="false"
+ExternalAccess="Read/Write">
+<Description>
+<![CDATA[- Состояние дискретного сигнала]]>
+</Description>
+</Member>
+<Member Name="ZZZZZZZZZZ_DO_HMI1" DataType="SINT" Dimension="0" Radix="Decimal" Hidden="true"
+ExternalAccess="Read/Write"/>
+<Member Name="C_Invert" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"
+Target="ZZZZZZZZZZ_DO_HMI1" BitNumber="0" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[- Используется инвертированный выходной сигнал]]>
+</Description>
+</Member>
+<Member Name="C_Use_Fault" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"
+Target="ZZZZZZZZZZ_DO_HMI1" BitNumber="1" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[- Используется контроль ошибки модуля]]>
+</Description>
+</Member>
+<Member Name="I_In_Aut" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"
+Target="ZZZZZZZZZZ_DO_HMI1" BitNumber="2" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[- Вход - с программы]]>
+</Description>
+</Member>
+<Member Name="I_In_Man" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"
+Target="ZZZZZZZZZZ_DO_HMI1" BitNumber="3" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[- Вход - ручное]]>
+</Description>
+</Member>
+<Member Name="I_Man_Mode" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"
+Target="ZZZZZZZZZZ_DO_HMI1" BitNumber="4" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[- Режим ручной]]>
+</Description>
+</Member>
+<Member Name="I_Fault" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"
+Target="ZZZZZZZZZZ_DO_HMI1" BitNumber="5" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[- Вход контроля ошибки модуля]]>
+</Description>
+</Member>
+<Member Name="O_Out" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"
+Target="ZZZZZZZZZZ_DO_HMI1" BitNumber="6" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[- Обработанный дискретный выходной сигнал]]>
+</Description>
+</Member>
+<Member Name="Name" DataType="STRING" Dimension="0" Radix="NullType" Hidden="false"
+ExternalAccess="Read/Write">
+<Description>
+<![CDATA[- Описание сигнала]]>
+</Description>
+</Member>
+<Member Name="Number" DataType="STRING" Dimension="0" Radix="NullType" Hidden="false"
+ExternalAccess="Read/Write">
+<Description>
+<![CDATA[- Номер сигнала]]>
+</Description>
+</Member>
+</Members>
+</DataType>
+<DataType Name="_DO_In" Family="NoFamily" Class="User">
+<Description>
+<![CDATA[Входные]]>
+</Description>
+<Members>
+<Member Name="ZZZZZZZZZZ_DO_In0" DataType="SINT" Dimension="0" Radix="Decimal" Hidden="true"
+ExternalAccess="Read/Write"/>
+<Member Name="In_Aut" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"
+Target="ZZZZZZZZZZ_DO_In0" BitNumber="0" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[- Вход - с программы]]>
+</Description>
+</Member>
+<Member Name="In_Man" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"
+Target="ZZZZZZZZZZ_DO_In0" BitNumber="1" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[- Вход - ручное]]>
+</Description>
+</Member>
+<Member Name="Man_Mode" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"
+Target="ZZZZZZZZZZ_DO_In0" BitNumber="2" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[- Режим ручной]]>
+</Description>
+</Member>
+<Member Name="Fault" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"
+Target="ZZZZZZZZZZ_DO_In0" BitNumber="3" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[- Вход контроля ошибки модуля]]>
+</Description>
+</Member>
+</Members>
+</DataType>
+<DataType Name="_DO_Int" Family="NoFamily" Class="User">
+<Description>
+<![CDATA[Внутренние]]>
+</Description>
+<Members>
+<Member Name="ZZZZZZZZZZ_DO_Int0" DataType="SINT" Dimension="0" Radix="Decimal" Hidden="true"
+ExternalAccess="Read/Write"/>
+<Member Name="Tmp_in" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"
+Target="ZZZZZZZZZZ_DO_Int0" BitNumber="0" ExternalAccess="Read/Write"/>
+</Members>
+</DataType>
+<DataType Name="_DO_Out" Family="NoFamily" Class="User">
+<Description>
+<![CDATA[Выходные]]>
+</Description>
+<Members>
+<Member Name="ZZZZZZZZZZ_DO_Out0" DataType="SINT" Dimension="0" Radix="Decimal" Hidden="true"
+ExternalAccess="Read/Write"/>
+<Member Name="Out" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"
+Target="ZZZZZZZZZZ_DO_Out0" BitNumber="0" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[- Обработанное значение дискретного выхода]]>
+</Description>
+</Member>
+</Members>
+</DataType>
+<DataType Name="_DT_DateTime" Family="NoFamily" Class="User">
+<Description>
+<![CDATA[Дата\время]]>
+</Description>
+<Members>
+<Member Name="Year" DataType="DINT" Dimension="0" Radix="Decimal" Hidden="false"
+ExternalAccess="Read/Write">
+<Description>
+<![CDATA[- Год]]>
+</Description>
+</Member>
+<Member Name="Month" DataType="DINT" Dimension="0" Radix="Decimal" Hidden="false"
+ExternalAccess="Read/Write">
+<Description>
+<![CDATA[- Месяц]]>
+</Description>
+</Member>
+<Member Name="Day" DataType="DINT" Dimension="0" Radix="Decimal" Hidden="false"
+ExternalAccess="Read/Write">
+<Description>
+<![CDATA[- День]]>
+</Description>
+</Member>
+<Member Name="Hour" DataType="DINT" Dimension="0" Radix="Decimal" Hidden="false"
+ExternalAccess="Read/Write">
+<Description>
+<![CDATA[- Час]]>
+</Description>
+</Member>
+<Member Name="Min" DataType="DINT" Dimension="0" Radix="Decimal" Hidden="false"
+ExternalAccess="Read/Write">
+<Description>
+<![CDATA[- Мин]]>
+</Description>
+</Member>
+<Member Name="Sec" DataType="DINT" Dimension="0" Radix="Decimal" Hidden="false"
+ExternalAccess="Read/Write">
+<Description>
+<![CDATA[- Сек]]>
+</Description>
+</Member>
+<Member Name="Msec" DataType="DINT" Dimension="0" Radix="Decimal" Hidden="false"
+ExternalAccess="Read/Write">
+<Description>
+<![CDATA[- Мсек]]>
+</Description>
+</Member>
+</Members>
+</DataType>
+</DataTypes>
+<Modules Use="Context">
+<Module Use="Reference">
+</Module>
+<Module Use="Reference">
+</Module>
+<Module Use="Reference" Name="Local">
+</Module>
+</Modules>
+<Tags Use="Context">
+</Tags>
+<Programs Use="Context">
+<Program Use="Context" Name="MainProgram">
+<Routines Use="Context">
+<Routine Use="Reference" Name="_DO">
+</Routine>
+<Routine Use="Target" Name="DOut" Type="RLL">
+<RLLContent>
+</RLLContent>
+</Routine>
+</Routines>
+</Program>
+</Programs>
+</Controller>
 </RSLogix5000Content>

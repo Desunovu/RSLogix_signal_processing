@@ -34,15 +34,15 @@
 </StructureMember>
 <StructureMember Name="Tim_Deb_Off" DataType="TIMER">
 <DataValueMember Name="PRE" DataType="DINT" Radix="Decimal" Value="0"/>
-<DataValueMember Name="ACC" DataType="DINT" Radix="Decimal" Value="0"/>
-<DataValueMember Name="EN" DataType="BOOL" Value="0"/>
+<DataValueMember Name="ACC" DataType="DINT" Radix="Decimal" Value="37"/>
+<DataValueMember Name="EN" DataType="BOOL" Value="1"/>
 <DataValueMember Name="TT" DataType="BOOL" Value="0"/>
-<DataValueMember Name="DN" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DN" DataType="BOOL" Value="1"/>
 </StructureMember>
 <DataValueMember Name="Tmp_in" DataType="BOOL" Value="0"/>
 </StructureMember>
 <StructureMember Name="HMI" DataType="_DI_HMI">
-<DataValueMember Name="StatI" DataType="INT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="StatI" DataType="INT" Radix="Decimal" Value="1"/>
 <DataValueMember Name="C_Invert" DataType="BOOL" Value="0"/>
 <DataValueMember Name="C_Use_Fault" DataType="BOOL" Value="0"/>
 <DataValueMember Name="I_In_Aut" DataType="BOOL" Value="0"/>
@@ -69,7 +69,7 @@
 <StructureMember Name="Fault" DataType="_AH_Alarm">
 <DataValueMember Name="In" DataType="BOOL" Value="0"/>
 <DataValueMember Name="Out" DataType="BOOL" Value="0"/>
-<DataValueMember Name="Enable" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Enable" DataType="BOOL" Value="1"/>
 <DataValueMember Name="Ack" DataType="BOOL" Value="0"/>
 <DataValueMember Name="Unack" DataType="BOOL" Value="0"/>
 <DataValueMember Name="Quit" DataType="BOOL" Value="0"/>
