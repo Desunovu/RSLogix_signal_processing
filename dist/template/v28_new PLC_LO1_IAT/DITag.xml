@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Tag Name="[*tag_name*]" TagType="Base" DataType="_DI" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[[*tag_description*]]]>
+</Description>
+<Data Format="Decorated">
+<Structure DataType="_DI">
+<StructureMember Name="Cfg" DataType="_DI_Cfg">
+<DataValueMember Name="Invert" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Use_Fault" DataType="BOOL" Value="0"/>
+</StructureMember>
+<StructureMember Name="In" DataType="_DI_In">
+<DataValueMember Name="In_Aut" DataType="BOOL" Value="0"/>
+<DataValueMember Name="In_Man" DataType="BOOL" Value="0"/>
+<DataValueMember Name="In_Imit" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Man_Mode" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Imit_Mode" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Fault" DataType="BOOL" Value="0"/>
+</StructureMember>
+<StructureMember Name="Out" DataType="_DI_Out">
+<DataValueMember Name="Out" DataType="BOOL" Value="0"/>
+</StructureMember>
+<StructureMember Name="Par" DataType="_DI_Par">
+<DataValueMember Name="Deb_On_Tim" DataType="INT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Deb_Off_Tim" DataType="INT" Radix="Decimal" Value="0"/>
+</StructureMember>
+<StructureMember Name="Int" DataType="_DI_Int">
+<StructureMember Name="Tim_Deb_On" DataType="TIMER">
+<DataValueMember Name="PRE" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="ACC" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="EN" DataType="BOOL" Value="0"/>
+<DataValueMember Name="TT" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DN" DataType="BOOL" Value="0"/>
+</StructureMember>
+<StructureMember Name="Tim_Deb_Off" DataType="TIMER">
+<DataValueMember Name="PRE" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="ACC" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="EN" DataType="BOOL" Value="0"/>
+<DataValueMember Name="TT" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DN" DataType="BOOL" Value="0"/>
+</StructureMember>
+<DataValueMember Name="Tmp_in" DataType="BOOL" Value="0"/>
+</StructureMember>
+<StructureMember Name="HMI" DataType="_DI_HMI">
+<DataValueMember Name="StatI" DataType="INT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="C_Invert" DataType="BOOL" Value="0"/>
+<DataValueMember Name="C_Use_Fault" DataType="BOOL" Value="0"/>
+<DataValueMember Name="I_In_Aut" DataType="BOOL" Value="0"/>
+<DataValueMember Name="I_In_Man" DataType="BOOL" Value="0"/>
+<DataValueMember Name="I_In_Imit" DataType="BOOL" Value="0"/>
+<DataValueMember Name="I_Man_Mode" DataType="BOOL" Value="0"/>
+<DataValueMember Name="I_Imit_Mode" DataType="BOOL" Value="0"/>
+<DataValueMember Name="I_Fault" DataType="BOOL" Value="0"/>
+<DataValueMember Name="O_Out" DataType="BOOL" Value="0"/>
+<StructureMember Name="Name" DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</StructureMember>
+<StructureMember Name="Number" DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</StructureMember>
+</StructureMember>
+<StructureMember Name="Alm" DataType="_DI_Alm">
+<StructureMember Name="Fault" DataType="_AH_Alarm">
+<DataValueMember Name="In" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Out" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Enable" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Ack" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Unack" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Quit" DataType="BOOL" Value="0"/>
+<StructureMember Name="Timer" DataType="TIMER">
+<DataValueMember Name="PRE" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="ACC" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="EN" DataType="BOOL" Value="0"/>
+<DataValueMember Name="TT" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DN" DataType="BOOL" Value="0"/>
+</StructureMember>
+<DataValueMember Name="OutOSR" DataType="BOOL" Value="0"/>
+<DataValueMember Name="AckOSR" DataType="BOOL" Value="0"/>
+<StructureMember Name="OutDT" DataType="_DT_DateTime">
+<DataValueMember Name="Year" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Month" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Day" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Hour" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Min" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Sec" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Msec" DataType="DINT" Radix="Decimal" Value="0"/>
+</StructureMember>
+<StructureMember Name="AckDT" DataType="_DT_DateTime">
+<DataValueMember Name="Year" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Month" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Day" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Hour" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Min" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Sec" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Msec" DataType="DINT" Radix="Decimal" Value="0"/>
+</StructureMember>
+</StructureMember>
+<StructureMember Name="HMI" DataType="_DI_Alm_HMI">
+<DataValueMember Name="Fault" DataType="BOOL" Value="0"/>
+</StructureMember>
+</StructureMember>
+</Structure>
+</Data>
+</Tag>

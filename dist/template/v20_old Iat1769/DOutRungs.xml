@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<RLLContent>
+<Rung Number="0" Type="N">
+<Comment>
+<![CDATA[Обработка дискретного выхода:[*rung_comment*]]]>
+</Comment>
+<Text>
+<![CDATA[XIC(Local:[*l_index1*]:[*l_char*].Pt[*l_index2*].Fault)OTE([*tag_name*].In.Fault);]]>
+</Text>
+</Rung>
+<Rung Number="1" Type="N">
+<Text>
+<![CDATA[JSR(_DO,1,[*tag_name*],[*tag_name*]);]]>
+</Text>
+</Rung>
+<Rung Number="2" Type="N">
+<Text>
+<![CDATA[XIC([*tag_name*].Out.Out)OTE(Local:[*l_index1*]:[*l_char*].Pt[*l_index2*].Data);]]>
+</Text>
+</Rung>
+</RLLContent>
