@@ -1,0 +1,4 @@
+easygui==0.98.3
+lxml==4.9.0
+pylightxl==1.59
+python-dotenv==0.20.0
