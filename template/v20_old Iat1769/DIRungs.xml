@@ -6,7 +6,7 @@
 ]]>
 </Comment>
 <Text>
-<![CDATA[[XIO(DI1_FT_Overtemperature.In.Imit_Mode) XIC(Local:[*l_index1*]:[*l_char*]:.Pt[*l_index2*].Data) ,XIC([*tag_name*].In.Imit_Mode) XIC([*tag_name*].In.In_Imit) ]OTE([*tag_name*].In.In_Aut);]]>
+<![CDATA[[XIO([*tag_name*].In.Imit_Mode) XIC(Local:[*l_index1*]:[*l_char*]:.Pt[*l_index2*].Data) ,XIC([*tag_name*].In.Imit_Mode) XIC([*tag_name*].In.In_Imit) ]OTE([*tag_name*].In.In_Aut);]]>
 </Text>
 </Rung>
 <Rung Number="1" Type="N">
