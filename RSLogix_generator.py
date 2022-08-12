@@ -163,7 +163,7 @@ if __name__ == "__main__":
                 continue
 
             # блок выполняется только если ADDR записан верно
-            elif re.match(r'^([I]|[Q]){1}[W]{0,1}[:][0-9]{1,2}[/][0-9]{2}$', address.strip()):
+            elif re.match(r'^([I]|[Q]){1}[W]{0,1}[:][0-9]{1,2}[/][0-9]{1,2}$', address.strip()):
 
                 # пропуск если стока имени тега пустая
                 if not tag_name.strip():
